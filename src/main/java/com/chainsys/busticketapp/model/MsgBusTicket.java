@@ -11,13 +11,14 @@ import com.chainsys.busticketapp.logger.Logger;
 
 public class MsgBusTicket {
 	static Logger logger=Logger.getInstance();
+	
+	static Random rand=new Random();
 	public static int msg()
     {
         String authkey = "243477AVOV0jN2Q5bc967d9";
         String mobiles = "6369541046";
         String senderId = "VIGNES";
         String country = "91";
-        Random rand=new Random();
         int message=rand.nextInt(99999);
         String route="4";
         URLConnection myURLConnection=null;

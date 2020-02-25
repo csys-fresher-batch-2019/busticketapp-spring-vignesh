@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.chainsys.busticketapp.DBException;
@@ -40,11 +39,22 @@ public class BookingDAOImplementation implements BookingDAO {
 		stmt.executeUpdate();
 		int result=stmt.getInt(6);
 		logger.info(result);
-		if(result>=100) {
-			Mail.send("vignesh280519@gmail.com","6369541046","vigneshn051995@gmail.com"," Your Ticket is Booked ","Thanks for using this application",obj.getPassengerId());
-		}	
 		
+		String sql="select Email_id from user_register where user_id in (select user_id from reserve where status='Booked' and user_id="+obj.getUserId()+")";
+		try(Statement stm=con.createStatement();){
+		ResultSet rs=stm.executeQuery(sql);
+		logger.debug(rs);
+		String email="";
+		if(rs.next()) {
+			email=rs.getString("Email_id");
+			logger.debug("EmailId:"+email);
+		
+			if(result>=100) {
+			Mail.send("vignesh280519@gmail.com","6369541046",email," Your Ticket is Booked ","Thanks for using this application",obj.getPassengerId());
+		}	
+		}
 	}
+			}
 		catch (Exception e) {
 			e.printStackTrace();
 			throw new DBException(ErrorMessages.NO_DATA_FOUND);
@@ -192,7 +202,7 @@ public class BookingDAOImplementation implements BookingDAO {
 			catch (Exception e) {
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE);
 		}
-				
+	
 		return myticket;
 		
 	}

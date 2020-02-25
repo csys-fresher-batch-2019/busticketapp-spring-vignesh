@@ -26,9 +26,9 @@ public class PassengerImplementation implements PassengerDAO
 			 int row=pst.executeUpdate();
 			//int result=obj.getPassengerId();
 			logger.info(row);
-			if(row==1) {
+			/*if(row==1) {
 				Mail.send("vignesh280519@gmail.com","6369541046","vigneshn051995@gmail.com"," Thanks for using this application ","Your PassengerID:",obj.getPassengerId());
-			}	
+			} */	
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
