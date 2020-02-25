@@ -1,0 +1,11 @@
+language: java
+deploy:
+  provider: cloudfoundry
+  username: vigneshn051995@gmail.com
+  password: Vigneshn051995@
+  api: https://api.run.pivotal.io
+  organization: V_BusTicketApp
+  space: development
+  manifest: manifest.yml
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
