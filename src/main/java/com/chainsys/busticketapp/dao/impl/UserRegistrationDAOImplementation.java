@@ -4,13 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.chainsys.busticketapp.DBException;
-import com.chainsys.busticketapp.ErrorMessages;
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.busticketapp.dao.UserRegistrationDAO;
-import com.chainsys.busticketapp.logger.Logger;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.UserRegistration;
 import com.chainsys.busticketapp.util.ConnectionUtil;
-
+import com.chainsys.busticketapp.util.ErrorMessages;
+import com.chainsys.busticketapp.util.logger.Logger;
+@Repository
 public class UserRegistrationDAOImplementation implements UserRegistrationDAO {
 	UserRegistration obj = new UserRegistration();
 	Logger logger=Logger.getInstance();

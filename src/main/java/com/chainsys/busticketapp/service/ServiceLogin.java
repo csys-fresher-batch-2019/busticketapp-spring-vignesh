@@ -1,12 +1,18 @@
-package com.chainsys.busticketapp.util;
+package com.chainsys.busticketapp.service;
 
-import com.chainsys.busticketapp.DBException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chainsys.busticketapp.dao.LoginDAO;
-import com.chainsys.busticketapp.dao.impl.LoginDAOImplementation;
+import com.chainsys.busticketapp.exception.DBException;
+import com.chainsys.busticketapp.exception.ServiceException;
+import com.chainsys.busticketapp.exception.ValidatorException;
 import com.chainsys.busticketapp.model.UserRegistration;
 
+@Service
 public class ServiceLogin {
-	private LoginDAO login = new LoginDAOImplementation();
+	@Autowired
+	private LoginDAO login;
 	
 	public boolean adminLogin(String adminname, String pass) throws ServiceException{
 		boolean adminLogin=false;
@@ -31,11 +37,12 @@ public class ServiceLogin {
 		}
 	}
 	
-	public UserRegistration user(String name, String pass) throws ServiceException{
+	public UserRegistration user(String emailId, String pass) throws ServiceException{
 		UserRegistration userLogin= null;
 		try {
-			uservalidateSearch(name,pass);
-			userLogin=login.user(name, pass);
+			uservalidateSearch(emailId,pass);
+			userLogin=login.user(emailId, pass);
+			System.out.println(userLogin);
 			if ( userLogin == null) {
 				throw new ServiceException("Invalid Login");
 			}

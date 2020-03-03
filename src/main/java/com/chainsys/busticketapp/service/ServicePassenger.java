@@ -1,11 +1,14 @@
-package com.chainsys.busticketapp.util;
+package com.chainsys.busticketapp.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chainsys.busticketapp.dao.PassengerDAO;
-import com.chainsys.busticketapp.dao.impl.PassengerImplementation;
 import com.chainsys.busticketapp.model.Passenger;
-
+@Service
 public class ServicePassenger {
-	private PassengerDAO passenger = new PassengerImplementation();
+	@Autowired
+	private PassengerDAO passenger;
 	
 	public void addPassengerlist(Passenger obj)throws Exception{
 		passenger.addPassengerlist(obj);

@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Random;
 
-import com.chainsys.busticketapp.logger.Logger;
+import com.chainsys.busticketapp.util.logger.Logger;
 
 public class MsgBusTicket {
 	static Logger logger=Logger.getInstance();

@@ -1,7 +1,6 @@
-package com.chainsys;
+package com.chainsys.busticketapp.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.busticketapp.dao.impl.LoginDAOImplementation;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.chainsys.busticketapp.model.UserRegistration;
-import com.chainsys.busticketapp.util.ServiceLogin;
+import com.chainsys.busticketapp.service.ServiceLogin;
+
+
 @WebServlet("/Userloginservlet")
 public class Userloginservlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	
+	@Autowired
+	ServiceLogin com;
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ServiceLogin com=new ServiceLogin();
+		//ServiceLogin com=new ServiceLogin();
 		//LoginDAOImplementation com = new LoginDAOImplementation();
 		String EmailId = request.getParameter("Email_id");
 		//int userId=Integer.parseInt(UserName);

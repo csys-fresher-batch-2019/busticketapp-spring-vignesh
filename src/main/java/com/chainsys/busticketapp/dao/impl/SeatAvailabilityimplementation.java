@@ -7,13 +7,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import com.chainsys.busticketapp.DBException;
-import com.chainsys.busticketapp.ErrorMessages;
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.busticketapp.dao.SeatAvailabilityDAO;
-import com.chainsys.busticketapp.logger.Logger;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.SeatAvailability;
 import com.chainsys.busticketapp.util.ConnectionUtil;
-
+import com.chainsys.busticketapp.util.ErrorMessages;
+import com.chainsys.busticketapp.util.logger.Logger;
+@Repository
 public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 	Logger logger=Logger.getInstance();
 	public void addAvailableSeatlist(SeatAvailability obj) throws Exception {

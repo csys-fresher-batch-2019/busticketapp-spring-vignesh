@@ -1,18 +1,23 @@
-package com.chainsys.busticketapp.util;
+package com.chainsys.busticketapp.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.chainsys.busticketapp.DBException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chainsys.busticketapp.dao.BusTicketDAO;
-import com.chainsys.busticketapp.dao.impl.BusTicketManagerImplimentation;
+import com.chainsys.busticketapp.exception.DBException;
+import com.chainsys.busticketapp.exception.ServiceException;
+import com.chainsys.busticketapp.exception.ValidatorException;
 import com.chainsys.busticketapp.model.ListOfBuses;
-
+@Service
 public class ServiceBusTicket {
+	@Autowired
+	private BusTicketDAO busticket;
 
-	private BusTicketDAO busticket = new BusTicketManagerImplimentation();
-	//static Jdbi jdbi=ConnectionUtil.getJdbi();
-	//static BusTicketDAO busticket=jdbi.onDemand(BusTicketDAO.class);
+	// static Jdbi jdbi=ConnectionUtil.getJdbi();
+	// static BusTicketDAO busticket=jdbi.onDemand(BusTicketDAO.class);
 	void addBuslist(int busNo, String busName, String busSource, String busDestination, String clazz) throws Exception {
 		busticket.addBuslist(busName, busSource, busDestination, clazz);
 	}
@@ -30,7 +35,7 @@ public class ServiceBusTicket {
 	}
 
 	public List<ListOfBuses> sourceStationlist(String busSource, String busDestination) throws ServiceException {
-		
+
 		List<ListOfBuses> sourceStationlist;
 		try {
 			validateSearch(busSource, busDestination);
@@ -50,6 +55,5 @@ public class ServiceBusTicket {
 			throw new ValidatorException("Invalid destination");
 		}
 	}
-	
 
-	}
+}

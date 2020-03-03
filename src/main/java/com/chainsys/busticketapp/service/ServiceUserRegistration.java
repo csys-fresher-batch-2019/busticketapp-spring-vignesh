@@ -1,12 +1,14 @@
-package com.chainsys.busticketapp.util;
+package com.chainsys.busticketapp.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chainsys.busticketapp.dao.UserRegistrationDAO;
-import com.chainsys.busticketapp.dao.impl.UserRegistrationDAOImplementation;
 import com.chainsys.busticketapp.model.UserRegistration;
-
+@Service
 public class ServiceUserRegistration {
-
-	private UserRegistrationDAO userregister = new UserRegistrationDAOImplementation();
+	@Autowired
+	private UserRegistrationDAO userregister;
 	
 	public void newUserRegister(UserRegistration obj) throws Exception{
 		userregister.newUserRegister(obj);

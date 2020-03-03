@@ -3,10 +3,12 @@ package com.chainsys.busticketapp.model;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class BusTiming {
 
 
-
+	
 	public int getBusNo() {
 		return busNo;
 	}
@@ -40,7 +42,9 @@ public class BusTiming {
 
 	private int busNo;
 	private int amount;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	private LocalTime departureTime;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	private LocalTime arrivalTime;
 	
 	

@@ -1,4 +1,4 @@
-package com.chainsys;
+package com.chainsys.busticketapp.servlet;
 
 import java.io.IOException;
 
@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.busticketapp.dao.impl.UserRegistrationDAOImplementation;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.service.ServiceUserRegistration;
 
 @WebServlet("/RegisterServlet")
 
@@ -19,7 +21,9 @@ public class RegisterServlet extends HttpServlet {
 	public RegisterServlet() {
 		super();
 	}
-
+	@Autowired
+	ServiceUserRegistration dao;
+		
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String name = request.getParameter("name");
@@ -33,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
 		System.out.println(contact);
 		//System.out.println(userid);
 
-		UserRegistrationDAOImplementation dao = new UserRegistrationDAOImplementation();
+		//UserRegistrationDAOImplementation dao = new UserRegistrationDAOImplementation();
 		UserRegistration ul = new UserRegistration();
 		ul.setContactNumber(contact);
 		ul.setEmailId(email);

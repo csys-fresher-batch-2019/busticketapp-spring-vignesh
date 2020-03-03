@@ -1,16 +1,20 @@
-package com.chainsys.busticketapp.util;
+package com.chainsys.busticketapp.service;
 
 import java.util.ArrayList;
 
-import com.chainsys.busticketapp.DBException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chainsys.busticketapp.dao.BookingDAO;
-import com.chainsys.busticketapp.dao.impl.BookingDAOImplementation;
+import com.chainsys.busticketapp.exception.DBException;
+import com.chainsys.busticketapp.exception.ServiceException;
 import com.chainsys.busticketapp.model.Booking;
-
+@Service
 public class ServiceReservation {
-	private BookingDAO reservation = new BookingDAOImplementation();
+	@Autowired
+	private BookingDAO reservation;
 
-	void addReservationList(Booking obj) throws Exception {
+	public void addReservationList(Booking obj) throws Exception {
 		reservation.addReservationList(obj);
 	}
 
@@ -39,6 +43,17 @@ public class ServiceReservation {
 
 	public void updateNoOfTicket(int ticketNo, int passengerId, int noOfTicket) throws Exception {
 		reservation.updateNoOfTicket(ticketNo, passengerId, noOfTicket);
+	}
+
+	public ArrayList<Booking> listMyTickets(int userId) throws Exception{
+		ArrayList<Booking> reserveDetails = new ArrayList<>();
+		try{
+			reserveDetails=reservation.listMyTickets(userId);
+		}catch (DBException e) {
+			throw new ServiceException(e.getMessage());
+	}
+		return reserveDetails;
+		
 	}
 
 }

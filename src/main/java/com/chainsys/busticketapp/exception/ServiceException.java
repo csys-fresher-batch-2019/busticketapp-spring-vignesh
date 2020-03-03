@@ -1,4 +1,4 @@
-package com.chainsys.busticketapp.util;
+package com.chainsys.busticketapp.exception;
 
 public class ServiceException extends RuntimeException {
 

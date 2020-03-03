@@ -1,4 +1,4 @@
-package com.chainsys;
+package com.chainsys.busticketapp.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.chainsys.busticketapp.dao.impl.BookingDAOImplementation;
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.model.BusTiming;
 import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.service.ServiceReservation;
 @WebServlet("/BookingServlet")
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,8 +26,8 @@ public class BookingServlet extends HttpServlet {
     public BookingServlet() {
         super();
     }
-
-	
+    @Autowired
+    ServiceReservation dao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String passengerId=request.getParameter("passengerid");
 			String noOfTicket=request.getParameter("noOfTicket");
@@ -44,7 +47,7 @@ public class BookingServlet extends HttpServlet {
 		System.out.println(passengerid);
 		System.out.println(noofticket);
 		System.out.println(journeydate);
-		BookingDAOImplementation dao= new BookingDAOImplementation();
+		//BookingDAOImplementation dao= new BookingDAOImplementation();
 		Booking ul= new Booking();
 		ul.setBusNo(busno);
 		ul.setPassengerId(passengerid);

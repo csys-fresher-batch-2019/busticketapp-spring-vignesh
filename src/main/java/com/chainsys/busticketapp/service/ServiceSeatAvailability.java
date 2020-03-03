@@ -1,15 +1,18 @@
-package com.chainsys.busticketapp.util;
+package com.chainsys.busticketapp.service;
 
 import java.util.ArrayList;
 
-import com.chainsys.busticketapp.DBException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chainsys.busticketapp.dao.SeatAvailabilityDAO;
-import com.chainsys.busticketapp.dao.impl.SeatAvailabilityimplementation;
+import com.chainsys.busticketapp.exception.DBException;
+import com.chainsys.busticketapp.exception.ServiceException;
 import com.chainsys.busticketapp.model.SeatAvailability;
-
+@Service
 public class ServiceSeatAvailability {
-
-	private SeatAvailabilityDAO seatavaialbility = new SeatAvailabilityimplementation();
+	@Autowired
+	private SeatAvailabilityDAO seatavaialbility;
 	
 	public void addAvailableSeatlist(SeatAvailability obj) throws Exception{
 		seatavaialbility.addAvailableSeatlist(obj);

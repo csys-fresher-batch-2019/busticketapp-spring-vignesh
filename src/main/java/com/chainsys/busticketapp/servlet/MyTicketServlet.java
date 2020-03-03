@@ -1,4 +1,4 @@
-package com.chainsys;
+package com.chainsys.busticketapp.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.busticketapp.dao.impl.BookingDAOImplementation;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.service.ServiceReservation;
 
 @WebServlet("/MyTicketServlet")
 public class MyTicketServlet extends HttpServlet {
@@ -23,7 +25,8 @@ public class MyTicketServlet extends HttpServlet {
         super();
 
     }
-
+    @Autowired
+    ServiceReservation dao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId=request.getParameter("userid");
@@ -33,7 +36,7 @@ public class MyTicketServlet extends HttpServlet {
 				
 		int userid=user.getUserId() ;///Integer.parseInt(userId);
 		System.out.println(userid);
-		BookingDAOImplementation dao= new BookingDAOImplementation();
+		//BookingDAOImplementation dao= new BookingDAOImplementation();
 		//Booking ul= new Booking();
 		//ul.setUserId(userid);
 		try {

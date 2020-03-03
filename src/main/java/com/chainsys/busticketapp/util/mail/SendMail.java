@@ -1,7 +1,7 @@
-package com.chainsys.busticketapp.dao.impl.mail;
+package com.chainsys.busticketapp.util.mail;
 import java.io.IOException;
 
-import com.chainsys.busticketapp.DBException;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.Booking;
 
 public class SendMail {

@@ -10,13 +10,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.chainsys.busticketapp.DBException;
-import com.chainsys.busticketapp.ErrorMessages;
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.busticketapp.dao.TimingDAO;
-import com.chainsys.busticketapp.logger.Logger;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.BusTiming;
 import com.chainsys.busticketapp.util.ConnectionUtil;
-
+import com.chainsys.busticketapp.util.ErrorMessages;
+import com.chainsys.busticketapp.util.logger.Logger;
+@Repository
 public class BusTimingIplementation implements TimingDAO {
 	Logger logger = Logger.getInstance();
 

@@ -1,7 +1,6 @@
-package com.chainsys;
+package com.chainsys.busticketapp.servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
@@ -12,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.chainsys.busticketapp.dao.SeatAvailabilityDAO;
 import com.chainsys.busticketapp.dao.impl.BusTimingIplementation;
 import com.chainsys.busticketapp.dao.impl.SeatAvailabilityimplementation;
 import com.chainsys.busticketapp.model.BusTiming;
+import com.chainsys.busticketapp.service.ServiceBusTiming;
 
 @WebServlet("/BusTimingServlet")
 public class BusTimingServlet extends HttpServlet {
@@ -23,13 +25,12 @@ public class BusTimingServlet extends HttpServlet {
 
 	public BusTimingServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
+	 @Autowired
+	 ServiceBusTiming obj;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		BusTimingIplementation obj = new BusTimingIplementation();
+		//BusTimingIplementation obj = new BusTimingIplementation();
 		String busNo = request.getParameter("busNo");
 		try {
 

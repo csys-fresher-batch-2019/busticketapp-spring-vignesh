@@ -10,14 +10,16 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 
-import com.chainsys.busticketapp.DBException;
-import com.chainsys.busticketapp.ErrorMessages;
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.busticketapp.dao.BookingDAO;
-import com.chainsys.busticketapp.dao.impl.mail.Mail;
-import com.chainsys.busticketapp.logger.Logger;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.util.ConnectionUtil;
-
+import com.chainsys.busticketapp.util.ErrorMessages;
+import com.chainsys.busticketapp.util.logger.Logger;
+import com.chainsys.busticketapp.util.mail.Mail;
+@Repository
 public class BookingDAOImplementation implements BookingDAO {
 	Booking obj = new Booking();
 	Logger logger=Logger.getInstance();

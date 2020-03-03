@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
-import com.chainsys.busticketapp.DBException;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.ListOfBuses;
 
 public interface BusTicketDAO {

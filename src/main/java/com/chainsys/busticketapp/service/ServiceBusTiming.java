@@ -1,13 +1,16 @@
-package com.chainsys.busticketapp.util;
+package com.chainsys.busticketapp.service;
 
 import java.util.List;
 
-import com.chainsys.busticketapp.dao.TimingDAO;
-import com.chainsys.busticketapp.dao.impl.BusTimingIplementation;
-import com.chainsys.busticketapp.model.BusTiming;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.chainsys.busticketapp.dao.TimingDAO;
+import com.chainsys.busticketapp.model.BusTiming;
+@Service
 public class ServiceBusTiming {
-	private TimingDAO timeing = new BusTimingIplementation();
+	@Autowired
+	private TimingDAO timeing;
 	
 	void addBusTiming(BusTiming obj) throws Exception{
 		timeing.addBusTiming(obj);

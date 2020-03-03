@@ -9,15 +9,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.chainsys.busticketapp.DBException;
-import com.chainsys.busticketapp.ErrorMessages;
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.busticketapp.dao.BusTicketDAO;
-import com.chainsys.busticketapp.logger.Logger;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.BusTiming;
 import com.chainsys.busticketapp.model.ListOfBuses;
 import com.chainsys.busticketapp.model.SeatAvailability;
 import com.chainsys.busticketapp.util.ConnectionUtil;
-
+import com.chainsys.busticketapp.util.ErrorMessages;
+import com.chainsys.busticketapp.util.logger.Logger;
+@Repository
 public class BusTicketManagerImplimentation implements BusTicketDAO {
 	private int busCount;
 

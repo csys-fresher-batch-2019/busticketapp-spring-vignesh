@@ -2,7 +2,7 @@ package com.chainsys.busticketapp.dao;
 
 import java.util.ArrayList;
 
-import com.chainsys.busticketapp.DBException;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.Booking;
 
 public interface BookingDAO {

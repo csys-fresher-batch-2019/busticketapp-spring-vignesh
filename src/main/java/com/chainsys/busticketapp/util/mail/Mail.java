@@ -1,4 +1,4 @@
-package com.chainsys.busticketapp.dao.impl.mail;
+package com.chainsys.busticketapp.util.mail;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -13,8 +13,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.chainsys.busticketapp.DBException;
-import com.chainsys.busticketapp.ErrorMessages; 
+import com.chainsys.busticketapp.exception.DBException;
+import com.chainsys.busticketapp.util.ErrorMessages; 
 public class Mail {
 	public static void send(final String from,final String password,String to,String sub,String Msg,int id) throws IOException, DBException
 	{//  Logger logger = Logger.getInstance();

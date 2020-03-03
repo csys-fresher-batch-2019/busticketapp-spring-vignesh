@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 
 @SpringBootApplication(exclude=DataSourceAutoConfiguration.class)
-@ServletComponentScan("com.chainsys")
+@ServletComponentScan("com.chainsys.busticketapp.servlet")
 public class BusticketappApplication {
 
 	public static void main(String[] args) {

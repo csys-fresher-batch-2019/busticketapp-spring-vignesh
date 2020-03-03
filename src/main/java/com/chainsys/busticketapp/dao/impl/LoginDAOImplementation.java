@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.chainsys.busticketapp.DBException;
-import com.chainsys.busticketapp.ErrorMessages;
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.busticketapp.dao.LoginDAO;
+import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.UserRegistration;
 import com.chainsys.busticketapp.util.ConnectionUtil;
-
+import com.chainsys.busticketapp.util.ErrorMessages;
+@Repository
 public class LoginDAOImplementation implements LoginDAO {
 	public boolean adminLogin(String adminName, String pass) throws Exception {
 

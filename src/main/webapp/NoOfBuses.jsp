@@ -23,6 +23,7 @@
 		//LocalDate journeyDate = LocalDate.parse(journeydate);
 		List<ListOfBuses> list = dao.sourceStationlist(BusSource, BusDestination);
 	%>
+	  <c:set var="busList" value="<%=list%>"></c:set>
 	 <%
  HttpSession sessiondate=request.getSession();
  sessiondate.setAttribute("journeydate", journeydate);
@@ -46,25 +47,27 @@
 
 			<%
 				int i = 1;
-				for (ListOfBuses in : list) {
+				//for (ListOfBuses in : list) {
 					
 			%>
+			<c:forEach items="${busList}" var="b">
+			
 
 			<tr>
-				<td><%=i++%></td>
-				<td><%=in.getBusNo()%></td>
-				<td><%=in.getBusName()%></td>
-				<td><%=in.getClazz()%></td>
-				<%-- <td><a href="viewavailablebus.jsp?BusNo=<%=in.getBusNo()%>">Seats</a></td> --%>
-				<%-- <td><a href="BusTimingServlet?busNo=<%=in.getBusNo()%>"
-					target="_blank">Timings</a></td> --%>
-					<td><%=in.getAmount()%> </td>
-					<td><%=in.getSeatAvailability().getTotalSeats()%> </td>
-					<td><%=in.getSeatAvailability().getAvailableSeats()%> </td>
-					<td><%=in.getBusTiming().getDepartureTime()%></td>
-					<td><a href="BusTimingServlet?busNo=<%=in.getBusNo()%>&Timing=<%=in.getBusTiming().getDepartureTime()%>">click</a></td> 
-					</tr>
-			<% } %>
+			<td><%=i++%></td>
+				<td>${b.busNo}</td>
+				<td>${b.busName}</td>
+				<td>${b.clazz}</td>
+				<td>${b.amount}</td>
+				<td>${b.seatAvailability.availableSeats}</td>
+				<td>${b.seatAvailability.totalSeats}</td>
+				<td>${b.busTiming.departureTime}</td>
+				<td><a href="BusTimingServlet?busNo=${b.getBusNo()}&Timing=${b.getBusTiming().getDepartureTime()}">click</a></td>
+				</tr>
+					</c:forEach>
+			<%
+			//}
+				%>
 
 </tbody>
 </table>	

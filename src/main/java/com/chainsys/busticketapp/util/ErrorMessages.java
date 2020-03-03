@@ -1,4 +1,4 @@
-package com.chainsys.busticketapp;
+package com.chainsys.busticketapp.util;
 
 public class ErrorMessages {
 	

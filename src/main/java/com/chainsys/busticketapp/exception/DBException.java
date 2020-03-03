@@ -1,4 +1,4 @@
-package com.chainsys.busticketapp;
+package com.chainsys.busticketapp.exception;
 
 @SuppressWarnings("serial")
 public class DBException extends Exception {

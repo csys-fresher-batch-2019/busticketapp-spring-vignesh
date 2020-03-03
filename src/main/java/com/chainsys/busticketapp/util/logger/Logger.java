@@ -1,5 +1,8 @@
-package com.chainsys.busticketapp.logger;
+package com.chainsys.busticketapp.util.logger;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Logger {
 public static Logger getInstance() 
 {
