@@ -6,10 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.busticketapp.dao.TimingDAO;
@@ -17,14 +18,13 @@ import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.BusTiming;
 import com.chainsys.busticketapp.util.ConnectionUtil;
 import com.chainsys.busticketapp.util.ErrorMessages;
-import com.chainsys.busticketapp.util.logger.Logger;
 @Repository
 public class BusTimingIplementation implements TimingDAO {
-	Logger logger = Logger.getInstance();
+	private static final Logger LOGGER = LoggerFactory.getLogger(BusTicketManagerImplimentation.class);
 
 	public void addBusTiming(BusTiming obj) throws Exception {
 		String sql = "insert into bus_time(bus_no,amount,departure_time,arrival_time) values(?,?,?,?)";
-		logger.debug(sql);
+		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setInt(1, obj.getBusNo());
 			pst.setInt(2, obj.getAmount());
@@ -33,7 +33,7 @@ public class BusTimingIplementation implements TimingDAO {
 			// pst.setString(3, obj.getDepartureTime());
 			// pst.setString(4, obj.getArrivalTime());
 			int row = pst.executeUpdate();
-			logger.info(row);
+			LOGGER.info(""+row);
 		} catch (Exception e) {
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE);
 		}
@@ -41,12 +41,12 @@ public class BusTimingIplementation implements TimingDAO {
 
 	public void deleteBusTiming(int busNo) throws Exception {
 		String sql = "delete from bus_time where bus_no=?";
-		logger.debug(sql);
+		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection();) {
 			try (PreparedStatement pst = con.prepareStatement(sql);) {
 				pst.setInt(1, busNo);
 				int row = pst.executeUpdate();
-				logger.info(row);
+				LOGGER.info(""+row);
 			} catch (Exception e) {
 				throw new DBException(ErrorMessages.NO_DATA_FOUND);
 			}
@@ -57,7 +57,7 @@ public class BusTimingIplementation implements TimingDAO {
 
 	public List<BusTiming> bustimeDetails() throws Exception {
 		String sql = "select * from bus_time";
-		logger.debug(sql);
+		LOGGER.debug(sql);
 		ArrayList<BusTiming> List = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();
 				Statement stmt = con.createStatement();
@@ -81,7 +81,7 @@ public class BusTimingIplementation implements TimingDAO {
 	public BusTiming bustimes(int busNo) throws Exception {
 		String sql = "select * from bus_time where bus_no=" + busNo;
 		BusTiming obj = null;
-		logger.debug(sql);
+		LOGGER.debug(sql);
 		// ArrayList<BusTiming> List=new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection(); Statement stmt = con.createStatement();) {
 			try (ResultSet rs = stmt.executeQuery(sql);) {

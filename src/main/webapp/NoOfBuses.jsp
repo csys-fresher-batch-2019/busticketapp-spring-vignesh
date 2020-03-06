@@ -72,5 +72,5 @@
 </tbody>
 </table>	
 </body>
-<jsp:include page="Logout.jsp"/></center>
+<jsp:include page="Logout.jsp"/>
 </html>

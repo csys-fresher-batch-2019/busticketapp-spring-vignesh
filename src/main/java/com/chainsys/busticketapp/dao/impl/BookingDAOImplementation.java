@@ -9,47 +9,47 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
 import com.chainsys.busticketapp.dao.BookingDAO;
 import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.util.ConnectionUtil;
 import com.chainsys.busticketapp.util.ErrorMessages;
-import com.chainsys.busticketapp.util.logger.Logger;
 import com.chainsys.busticketapp.util.mail.Mail;
 @Repository
 public class BookingDAOImplementation implements BookingDAO {
 	Booking obj = new Booking();
-	Logger logger=Logger.getInstance();
+	//Logger logger=Logger.getInstance();
+	private static final Logger LOGGER = LoggerFactory.getLogger(BookingDAOImplementation.class);
 	public void addReservationList(Booking obj) throws Exception {
 		try(Connection con = ConnectionUtil.getConnection();){
 		
 			try(CallableStatement stmt = con.prepareCall("{call ticket_booking(?,?,?,?,?,?)}");){
 		stmt.setInt(1, obj.getBusNo());
-		logger.info(obj.getBusNo());
+		LOGGER.info(""+obj.getBusNo());
 		stmt.setInt(2, obj.getPassengerId());
-		logger.info(obj.getPassengerId());
+		LOGGER.info(""+obj.getPassengerId());
 		stmt.setInt(3, obj.getNoOfTicket());
 		stmt.setTimestamp(4, Timestamp.valueOf(obj.getJourneyDate()));
 		//stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
-		logger.info(obj.getNoOfTicket());
+		LOGGER.info(""+obj.getNoOfTicket());
 		stmt.setInt(5, obj.getUserId());
 		stmt.registerOutParameter(6, Types.INTEGER);
 		
 		stmt.executeUpdate();
 		int result=stmt.getInt(6);
-		logger.info(result);
+		LOGGER.info(""+result);
 		
 		String sql="select Email_id from user_register where user_id in (select user_id from reserve where status='Booked' and user_id="+obj.getUserId()+")";
 		try(Statement stm=con.createStatement();){
 		ResultSet rs=stm.executeQuery(sql);
-		logger.debug(rs);
+		LOGGER.debug(""+rs);
 		String email="";
 		if(rs.next()) {
 			email=rs.getString("Email_id");
-			logger.debug("EmailId:"+email);
+			LOGGER.debug("EmailId:"+email);
 		
 			if(result>=100) {
 			Mail.send("vignesh280519@gmail.com","6369541046",email," Your Ticket is Booked ","Thanks for using this application",obj.getPassengerId());
@@ -70,12 +70,12 @@ public class BookingDAOImplementation implements BookingDAO {
 	}
 	public void cancelReservationList(int ticketNo) throws Exception {
 		String sql = "delete from reserve where ticket_no=?";
-		logger.debug(sql);
+		LOGGER.debug(sql);
 		try(Connection con = ConnectionUtil.getConnection();){
 		try(PreparedStatement pst = con.prepareStatement(sql);){
 		pst.setInt(1, ticketNo);
 			int row = pst.executeUpdate();
-		logger.info(row);
+			LOGGER.info(""+row);
 	}
 		catch (Exception e) {
 			throw new DBException(ErrorMessages.NO_DATA_FOUND);
@@ -87,7 +87,7 @@ public class BookingDAOImplementation implements BookingDAO {
 	}
 	public ArrayList<Booking> reserveDetails() throws Exception {
 		String sql = "select * from reserve";
-		logger.debug(sql);
+		LOGGER.debug(sql);
 		ArrayList<Booking> List = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection(); Statement stmt = con.createStatement();) {
 
@@ -153,17 +153,17 @@ public class BookingDAOImplementation implements BookingDAO {
 				pst1.setInt(1, noOfTicket);
 				pst1.setInt(2, noOfTicket);
 				pst1.setInt(3, ticketNo);
-				logger.debug(sql1);
+				LOGGER.debug(sql1);
 				int row1 = pst1.executeUpdate();
-				logger.info(row);
-				logger.info(row1);
+				LOGGER.info(""+row);
+				LOGGER.info(""+row1);
 		}
 			catch(SQLException e) {
-				logger.error("Unable to execute preparedstatement query");
+				LOGGER.error("Unable to execute preparedstatement query");
 			}
 			
 		}catch(SQLException e) {
-			logger.error("Unable to execute statement query");
+			LOGGER.error("Unable to execute statement query");
 		}
 			
 		}
@@ -175,7 +175,7 @@ public class BookingDAOImplementation implements BookingDAO {
 
 	public ArrayList<Booking> listMyTickets(int userId) throws Exception{
 		String sql="select * from reserve where user_id=?";
-		logger.debug(sql);
+		LOGGER.debug(sql);
 		ArrayList<Booking> myticket = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection(); Statement stmt = con.createStatement();) {
 			try(PreparedStatement pst = con.prepareStatement(sql);){

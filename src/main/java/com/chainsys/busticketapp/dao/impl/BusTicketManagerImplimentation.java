@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.busticketapp.dao.BusTicketDAO;
@@ -18,7 +20,6 @@ import com.chainsys.busticketapp.model.ListOfBuses;
 import com.chainsys.busticketapp.model.SeatAvailability;
 import com.chainsys.busticketapp.util.ConnectionUtil;
 import com.chainsys.busticketapp.util.ErrorMessages;
-import com.chainsys.busticketapp.util.logger.Logger;
 @Repository
 public class BusTicketManagerImplimentation implements BusTicketDAO {
 	private int busCount;
@@ -31,7 +32,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 		this.busCount = busCount;
 	}
 
-	Logger logger = Logger.getInstance();
+	private static final Logger LOGGER = LoggerFactory.getLogger(BusTicketManagerImplimentation.class);
 
 	public void addBuslist(String busName, String busSource, String busDestination, String clazz)
 			throws Exception {
@@ -40,7 +41,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 		try (Connection con = ConnectionUtil.getConnection();) {
 			try (PreparedStatement pst = con.prepareStatement(sql);) {
 
-				logger.debug(sql);
+				LOGGER.debug(sql);
 
 				//pst.setInt(1, busNo);
 				pst.setString(1, busName);
@@ -48,7 +49,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 				pst.setString(3, busDestination);
 				pst.setString(4, clazz);
 				int row = pst.executeUpdate();
-				logger.info(row);
+				LOGGER.info(""+row);
 
 			} catch (Exception e) {
 				throw new DBException(ErrorMessages.INORRECT_VALUE);
@@ -81,7 +82,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setInt(1, busNo);
 			pst.executeUpdate();
-			logger.info(busNo + " Bus Details are delete successfully");
+			LOGGER.info(busNo + " Bus Details are delete successfully");
 		} catch (Exception e) {
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE);
 		}
@@ -89,7 +90,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 
 	public int noOfBuses() throws Exception {
 		String sql = "select count(*) as busCount  from bus_list";
-		logger.debug(sql);
+		LOGGER.debug(sql);
 
 		try (Connection con = ConnectionUtil.getConnection();) {
 			try (Statement stmt = con.createStatement();) {
@@ -115,7 +116,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 	// bt where bl.bus_no = bt.bus_no";
 	public HashMap<String, Integer> noOfBuslist() throws Exception {
 		String sql = "select bus_name,bus_no from bus_list";
-		logger.debug(sql);
+		LOGGER.debug(sql);
 		HashMap<String, Integer> obj = new HashMap<String, Integer>();
 		try (Connection con = ConnectionUtil.getConnection(); Statement stmt = con.createStatement();) {
 			try (ResultSet rs = stmt.executeQuery(sql);) {

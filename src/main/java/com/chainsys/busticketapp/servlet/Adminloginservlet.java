@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.chainsys.busticketapp.model.UserRegistration;
 import com.chainsys.busticketapp.service.ServiceLogin;
 @WebServlet("/Adminloginservlet")
 public class Adminloginservlet extends HttpServlet {
@@ -32,16 +33,18 @@ public class Adminloginservlet extends HttpServlet {
 		System.out.println(password);
 		//ServiceLogin com = new ServiceLogin();
 		//LoginDAOImplementation com=new LoginDAOImplementation();
+		Boolean adminLogin=false;
 		try {
-			if(com.adminLogin(name, password)) {
+			 adminLogin = com.adminLogin(name, password);
+		if (adminLogin == true) {
 				HttpSession session1=request.getSession();
 				session1.setAttribute("Admin",name);	
 			System.out.println("Login Success");
-			response.sendRedirect("Adminportal.jsp");
+			response.sendRedirect("https://apivbusticketappin.cfapps.io/swagger-ui.html");
 				}
 			else {
 				System.out.println("Login faild");
-				response.sendRedirect("adminlogin.jsp");
+				response.sendRedirect("adminlogin.jsp?errorMessage=Invalid login");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
