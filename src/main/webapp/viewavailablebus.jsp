@@ -19,38 +19,32 @@
 		<img src="assets/images/busimage2.jpg" width="300" height="200"
 			alt="busimage" />
 	</center>
-	<%
-		UserRegistration user = (UserRegistration) session.getAttribute("User");
-	%>
-	<center>
-		USER ID:<%=user.getUserId()%></center>
+	<center>USER ID:${User.userId}</center>
 	<br>
 	<center>
 		<h1>Available Seats:</h1>
 	</center>
-	<form action="Passengerinfo.jsp">
-		<%
-			String busNo = request.getParameter("BusNo");
-			int BusNo = Integer.parseInt(busNo);
-			String Timing = request.getParameter("Timing");
-			//out.println(Timing);
-			Integer availableTickets = (Integer) request.getAttribute("AVAILABLE_SEATS");
-		%>
-		<center>
-			<h1><%=availableTickets%></h1>
-		</center>
+	<%--
+	 ${param.BusNo}
+	${param.Timing}
+	 --%>
+	<center>
+		<h1>${AVAILABLE_SEATS}</h1>
+	</center>
 
-		<center>
-			<button>
-				<a href="Passengerinfo.jsp?BusNo=<%=BusNo%>">NewPassenger 
-			</button>
-		</center>
-		<br />
-		<center>
-			<button><a href="Booking.jsp?BusNo=<%=BusNo%>">Already Register </button>
-		</center>
-	</form>
+	<center>
+		<button>
+			<a href="Passengerinfo.jsp?BusNo=${BusNo}">NewPassenger 
+		</button>
+	</center>
+	<br />
+	<center>
+		<button>
+			<a href="Booking.jsp?BusNo=${BusNo}">Already Register 
+		</button>
+	</center>
+
 </body>
-<center><jsp:include page="Logout.jsp"/></center>
+<center><jsp:include page="Logout.jsp" /></center>
 </html>
 

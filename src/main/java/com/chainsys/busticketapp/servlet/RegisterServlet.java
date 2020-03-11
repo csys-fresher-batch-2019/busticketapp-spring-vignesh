@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chainsys.busticketapp.model.UserRegistration;
-import com.chainsys.busticketapp.service.ServiceUserRegistration;
+import com.chainsys.busticketapp.service.UserRegistrationService;
 
 @WebServlet("/RegisterServlet")
 
@@ -22,7 +22,7 @@ public class RegisterServlet extends HttpServlet {
 		super();
 	}
 	@Autowired
-	ServiceUserRegistration dao;
+	UserRegistrationService dao;
 		
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

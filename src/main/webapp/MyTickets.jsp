@@ -1,4 +1,6 @@
-<%@page import="com.chainsys.busticketapp.model.UserRegistration"%>
+<%@page import="com.chainsys.busticketapp.model.Booking"%>
+<%@page import="com.chainsys.busticketapp.dao.impl.BookingDAOImplementation"%>
+<%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -6,20 +8,48 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>MyTickets</title>
+<title>Insert title here</title>
 </head>
 <body>
-<form action="MyTicketServlet" method="post"><br/>
-<body style="background-color:cyan;">
-<%UserRegistration user=(UserRegistration)session.getAttribute("User");
+<h2>MY Tickets</h2>
+<%
+ArrayList<Booking> listMyTickets= ( ArrayList<Booking> ) request.getAttribute("MyTickets");
+if ( listMyTickets != null){
 %>
-<center>UserId:<%=user.getUserId() %></center>
-<br/>
-<h2><center>MY TICKETS</center></h3>
-<br/><br/>
-<b>Enter UserId:</b> <input type="number" name="userid"
-placeholder="Enter UserId" required autofocus/><br/><br/>
-<button type="submit"style="margin-left:96px;">submit</button>
-</form>
+<table border="1">
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Ticket No</th>
+				<th>Bus No</th>
+				<th>Passenger Id</th>
+				<th>No Of Ticket</th>
+				<th>Journey Date</th>
+				<th>Total Amount</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		<a href="homeuser.jsp">Back
+	<%
+	int i=1;
+		for (Booking in : listMyTickets) {
+					
+	%>			
+	     		<tr>
+	     		<td><%=i++%></td>
+				<td><%=in.getTicketNo()%></td>
+				<td><%=in.getBusNo()%></td>
+				<td><%=in.getPassengerId()%></td>
+				<td><%=in.getNoOfTicket()%></td>
+				<td><%=in.getJourneyDate()%></td>
+				<td><%=in.getTotalAmount()%></td>
+				<td><%=in.getStatus()%></td>
+				</tr>
+				
+			<% } %>
+			
+<%} %>
+
 </body>
 </html>

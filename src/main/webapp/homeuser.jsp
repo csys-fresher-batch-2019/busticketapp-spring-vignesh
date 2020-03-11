@@ -10,9 +10,7 @@
 }
 </style>
 <body>
-<%UserRegistration user=(UserRegistration)session.getAttribute("User");
-%>
-<center>UserId:<%=user.getUserId() %></center>
+<center>USER ID:${User.userId}</center>
 <body style="background-color:pink;">
 	<div class="header">
 	<center><h2>BusTicketApp</h2></center>

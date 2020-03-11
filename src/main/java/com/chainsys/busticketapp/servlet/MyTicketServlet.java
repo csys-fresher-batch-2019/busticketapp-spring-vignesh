@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.model.UserRegistration;
-import com.chainsys.busticketapp.service.ServiceReservation;
+import com.chainsys.busticketapp.service.ReservationService;
 
 @WebServlet("/MyTicketServlet")
 public class MyTicketServlet extends HttpServlet {
@@ -26,10 +26,10 @@ public class MyTicketServlet extends HttpServlet {
 
     }
     @Autowired
-    ServiceReservation dao;
+    ReservationService dao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId=request.getParameter("userid");
+		//String userId=request.getParameter("userid");
 		
 		HttpSession session = request.getSession();
 		UserRegistration user = (UserRegistration)session.getAttribute("User");
@@ -42,11 +42,10 @@ public class MyTicketServlet extends HttpServlet {
 		try {
 			List<Booking> listMyTickets = dao.listMyTickets(userid);
 			request.setAttribute("MyTickets",listMyTickets);
-			//System.out.println(listMyTickets);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("Ticketlist.jsp").forward(request, response);
+		request.getRequestDispatcher("MyTickets.jsp").forward(request, response);
 	}
 
 	

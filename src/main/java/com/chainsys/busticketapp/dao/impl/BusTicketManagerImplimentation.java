@@ -54,7 +54,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 		}
 	}
 
-	public void deleteBuslist(int busNo) throws DBException {
+	/*public void deleteBuslist(int busNo) throws DBException {
 		String sql1 = "delete from seat_availability where bus_no=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
 			pst.setInt(1, busNo);
@@ -78,7 +78,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
-
+*/
 	public int noOfBuses() throws DBException {
 		String sql = "select count(*) as busCount  from bus_list";
 		LOGGER.debug(sql);

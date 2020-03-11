@@ -12,7 +12,7 @@ import com.chainsys.busticketapp.exception.ServiceException;
 import com.chainsys.busticketapp.model.SeatAvailability;
 import com.chainsys.busticketapp.validator.SourceDestinationValidator;
 @Service
-public class ServiceSeatAvailability {
+public class SeatAvailabilityService {
 	@Autowired
 	private SeatAvailabilityDAO seatavaialbility;
 	

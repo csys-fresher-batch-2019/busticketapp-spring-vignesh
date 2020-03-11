@@ -29,13 +29,9 @@ public class PassengerImplementation implements PassengerDAO {
 			int row = pst.executeUpdate();
 			// int result=obj.getPassengerId();
 			LOGGER.info("" + row);
-			/*
-			 * if(row==1) { Mail.send("vignesh280519@gmail.com","6369541046",
-			 * "vigneshn051995@gmail.com"," Thanks for using this application "
-			 * ,"Your PassengerID:",obj.getPassengerId()); }
-			 */
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DBException("Unable to execute AddPassenger", e);
 		}
 	}
 
@@ -47,8 +43,8 @@ public class PassengerImplementation implements PassengerDAO {
 			pst.setInt(1, passengerId);
 			int row = pst.executeUpdate();
 			LOGGER.info("" + row);
-		} catch (Exception e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+		} catch (SQLException e) {
+			throw new DBException("Unable to execute delete Passenger", e);
 		}
 	}
 
@@ -62,7 +58,7 @@ public class PassengerImplementation implements PassengerDAO {
 			int row = pst.executeUpdate();
 			LOGGER.info("" + row);
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DBException(ErrorMessages.INVALID_PHONE_NO, e);
 		}
 	}

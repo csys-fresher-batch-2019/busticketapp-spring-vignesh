@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.chainsys.busticketapp.dao.UserRegistrationDAO;
 import com.chainsys.busticketapp.model.UserRegistration;
 @Service
-public class ServiceUserRegistration {
+public class UserRegistrationService {
 	@Autowired
 	private UserRegistrationDAO userregister;
 	

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.busticketapp.service.ServiceLogin;
+import com.chainsys.busticketapp.service.LoginService;
 @WebServlet("/Adminloginservlet")
 public class Adminloginservlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +22,7 @@ public class Adminloginservlet extends HttpServlet {
     }
     
     @Autowired
-	ServiceLogin com;
+	LoginService com;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name=request.getParameter("name");
@@ -30,8 +30,6 @@ public class Adminloginservlet extends HttpServlet {
 		
 		System.out.println(name);
 		System.out.println(password);
-		//ServiceLogin com = new ServiceLogin();
-		//LoginDAOImplementation com=new LoginDAOImplementation();
 		Boolean adminLogin=false;
 		try {
 			 adminLogin = com.adminLogin(name, password);
@@ -46,7 +44,6 @@ public class Adminloginservlet extends HttpServlet {
 				response.sendRedirect("adminlogin.jsp?errorMessage=Invalid login");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

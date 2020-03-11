@@ -1,11 +1,6 @@
 <%@page import="java.time.LocalDate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.io.PrintWriter"%>
-<%@page import="java.util.List"%>
-<%@page import="com.chainsys.busticketapp.dao.BusTicketDAO"%>
-<%@page import="com.chainsys.busticketapp.model.ListOfBuses"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.busticketapp.dao.impl.BusTicketManagerImplimentation"%>
 <!DOCTYPE html>
 <html>
 <title>NoOfBusespage</title>
@@ -15,20 +10,8 @@
 <body>
 <body style="background-color:yellow;">
 	<h3>List Buses</h3>
-	<%
-		String BusSource = request.getParameter("source");
-		String BusDestination = request.getParameter("destination");
-		String journeydate = request.getParameter("journeydate");
-		BusTicketDAO dao = new BusTicketManagerImplimentation();
-		//LocalDate journeyDate = LocalDate.parse(journeydate);
-		List<ListOfBuses> list = dao.sourceStationlist(BusSource, BusDestination);
-	%>
-	  <c:set var="busList" value="<%=list%>"></c:set>
-	 <%
- HttpSession sessiondate=request.getSession();
- sessiondate.setAttribute("journeydate", journeydate);
- %>
 	<table border="1">
+	<a href="searchbus.jsp">Back
 		<thead>
 			<tr>
 				<th>S.No</th>

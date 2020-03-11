@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.chainsys.busticketapp.dao.TimingDAO;
 import com.chainsys.busticketapp.model.BusTiming;
 @Service
-public class ServiceBusTiming {
+public class BusTimingService {
 	@Autowired
 	private TimingDAO timeing;
 	

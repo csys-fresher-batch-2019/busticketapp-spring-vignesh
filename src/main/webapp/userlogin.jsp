@@ -13,7 +13,7 @@
 		 <input type="password" name="password" required> <br/>
 		<button type="submit">submit</button>
 		
-		<%
+<%-- 		<%
 String result = (String) request.getParameter("res");
 if (result != null) {
 out.println("<center><font color=red>" + result + "</font></center>");
@@ -26,7 +26,8 @@ if(errorMessage!=null)
 {
 out.println("<font color='red'>"+errorMessage+"</font>");
 }
-%>
+%> --%>
+<jsp:include page="message.jsp"></jsp:include>
 <br />
 </form>
 </body>

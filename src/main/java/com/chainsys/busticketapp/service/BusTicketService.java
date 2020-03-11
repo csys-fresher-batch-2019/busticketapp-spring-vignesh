@@ -13,21 +13,21 @@ import com.chainsys.busticketapp.exception.ValidatorException;
 import com.chainsys.busticketapp.model.ListOfBuses;
 import com.chainsys.busticketapp.validator.SourceDestinationValidator;
 @Service
-public class ServiceBusTicket {
+public class BusTicketService {
 	@Autowired
 	private BusTicketDAO busticket;
 
 	// static Jdbi jdbi=ConnectionUtil.getJdbi();
 	// static BusTicketDAO busticket=jdbi.onDemand(BusTicketDAO.class);
-	void addBuslist(int busNo, String busName, String busSource, String busDestination, String clazz) throws Exception {
+	public void addBuslist(int busNo, String busName, String busSource, String busDestination, String clazz) throws Exception {
 		busticket.addBuslist(busName, busSource, busDestination, clazz);
 	}
 
-	void deleteBuslist(int busNo) throws Exception {
+	/*void deleteBuslist(int busNo) throws Exception {
 		busticket.deleteBuslist(busNo);
 	}
-
-	int noOfBuses() throws Exception {
+*/
+	public int noOfBuses() throws Exception {
 		return busticket.noOfBuses();
 	}
 

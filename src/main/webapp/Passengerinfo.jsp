@@ -14,14 +14,12 @@
 <center><img src="assets/images/busimage.jpg"
 width="200" height="100"
 alt="busimage"/></center>
-<%UserRegistration user=(UserRegistration)session.getAttribute("User");
-BusTiming bustime = (BusTiming)session.getAttribute("Timing");
-%>
-<center>USER ID:<%=user.getUserId() %></center><br/>
+<center>USER ID:${User.userId}</center>
+<br/>
 <center><table border="1">
 <thead><tr><th>Bus</th> <th>Timing </th> </tr></thead>
 <tbody>
-<tr><td><%= bustime.getBusNo() %> </td> <td><%= bustime.getDepartureTime() %></td></tr>
+<tr><td>${Timing.getBusNo()}</td> <td>${Timing.getDepartureTime()}</td></tr>
 </tbody>
 </table></center>
 <br/>
@@ -29,14 +27,16 @@ BusTiming bustime = (BusTiming)session.getAttribute("Timing");
 String busno=request.getParameter("busNo");
 request.setAttribute("bus", busno);
 %>
-<%
+<%-- <%
 		String infoMessage = (String) request.getAttribute("infoMessage");
 		String errorMessage = (String) request.getAttribute("errorMessage");
 		if (infoMessage != null)
 			out.println(infoMessage);
 		if (errorMessage != null)
 			out.println(errorMessage);
-	%>
+	%> --%>
+	
+<jsp:include page="message.jsp"></jsp:include>
 	
 <center><h3>Enter Passenger Details..</h3></center>
 <form action="passengerservlet">

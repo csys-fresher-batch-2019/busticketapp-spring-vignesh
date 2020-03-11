@@ -1,5 +1,7 @@
 package com.chainsys.busticketapp.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,10 @@ import com.chainsys.busticketapp.model.UserRegistration;
 import com.chainsys.busticketapp.validator.UserValidator;
 
 @Service
-public class ServiceLogin {
+public class LoginService {
 	@Autowired
 	private LoginDAO login;
-	
+	private static final Logger Logger = LoggerFactory.getLogger(LoginService.class);
 	UserValidator uservalidator = new UserValidator();
 	
 	public boolean adminLogin(String adminname, String pass) throws ServiceException{
@@ -38,7 +40,8 @@ public class ServiceLogin {
 			
 			uservalidator.validateSearch(emailId,pass);
 			userLogin=login.user(emailId, pass);
-			System.out.println(userLogin);
+			
+			Logger.info(""+userLogin);
 			if ( userLogin == null) {
 				throw new ServiceException("Invalid Login");
 			}

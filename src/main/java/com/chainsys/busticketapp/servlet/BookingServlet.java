@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.model.BusTiming;
 import com.chainsys.busticketapp.model.UserRegistration;
-import com.chainsys.busticketapp.service.ServiceReservation;
+import com.chainsys.busticketapp.service.ReservationService;
 @WebServlet("/BookingServlet")
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class BookingServlet extends HttpServlet {
         super();
     }
     @Autowired
-    ServiceReservation dao;
+    ReservationService dao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String passengerId=request.getParameter("passengerid");
 			String noOfTicket=request.getParameter("noOfTicket");

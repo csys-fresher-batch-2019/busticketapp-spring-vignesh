@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.chainsys.busticketapp.dao.PassengerDAO;
 import com.chainsys.busticketapp.model.Passenger;
 @Service
-public class ServicePassenger {
+public class PassengerService {
 	@Autowired
 	private PassengerDAO passenger;
 	

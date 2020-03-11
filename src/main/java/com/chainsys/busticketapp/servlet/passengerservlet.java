@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chainsys.busticketapp.model.Passenger;
-import com.chainsys.busticketapp.service.ServicePassenger;
+import com.chainsys.busticketapp.service.PassengerService;
 @WebServlet("/passengerservlet")
 public class passengerservlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;      
@@ -19,7 +19,7 @@ public class passengerservlet extends HttpServlet {
         super();
     }
     @Autowired
-    ServicePassenger dao;
+    PassengerService dao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//PassengerDAO dao=new PassengerImplementation();
 		Passenger p=new Passenger();

@@ -1,7 +1,6 @@
 package com.chainsys.busticketapp.servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.busticketapp.dao.SeatAvailabilityDAO;
 import com.chainsys.busticketapp.dao.impl.SeatAvailabilityimplementation;
 import com.chainsys.busticketapp.model.BusTiming;
-import com.chainsys.busticketapp.service.ServiceBusTiming;
+import com.chainsys.busticketapp.service.BusTimingService;
 
 @WebServlet("/BusTimingServlet")
 public class BusTimingServlet extends HttpServlet {
@@ -26,18 +25,16 @@ public class BusTimingServlet extends HttpServlet {
 		super();
 	}
 	 @Autowired
-	 ServiceBusTiming obj;
+	 BusTimingService obj;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//BusTimingIplementation obj = new BusTimingIplementation();
 		String busNo = request.getParameter("busNo");
 		try {
 
 			int bNo = Integer.parseInt(busNo);
 			BusTiming bustime = obj.bustimes(bNo);
 
-			LocalDate journeyDate = LocalDate.now();
-
+			//LocalDate journeyDate = LocalDate.now();
 			// List<BusTiming> List= obj.bustimeDetails();
 			// System.out.println("No of BusTimings" + List.size());
 			HttpSession session = request.getSession();
@@ -49,7 +46,6 @@ public class BusTimingServlet extends HttpServlet {
 			request.setAttribute("AVAILABLE_SEATS", availableseats);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

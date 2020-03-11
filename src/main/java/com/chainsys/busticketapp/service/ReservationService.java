@@ -12,7 +12,7 @@ import com.chainsys.busticketapp.exception.ServiceException;
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.util.mail.Mail;
 @Service
-public class ServiceReservation {
+public class ReservationService {
 	@Autowired
 	private BookingDAO reservation;
 

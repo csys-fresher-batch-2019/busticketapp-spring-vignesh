@@ -11,7 +11,7 @@ public interface BusTicketDAO {
 	//@SqlUpdate("insert into bus_list (bus_no,bus_name,bus_source,bus_destination,class)values(?,?,?,?,?)")
 	void addBuslist(String busName, String busSource, String busDestination, String clazz) throws DBException;
 
-	void deleteBuslist(int busNo) throws DBException;
+	//void deleteBuslist(int busNo) throws DBException;
 
 	int noOfBuses() throws DBException;
 

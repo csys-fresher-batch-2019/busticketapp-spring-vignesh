@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chainsys.busticketapp.model.UserRegistration;
-import com.chainsys.busticketapp.service.ServiceLogin;
+import com.chainsys.busticketapp.service.LoginService;
 
 
 @WebServlet("/Userloginservlet")
@@ -21,7 +21,7 @@ public class Userloginservlet extends HttpServlet {
 
 	
 	@Autowired
-	ServiceLogin com;
+	LoginService com;
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -29,13 +29,14 @@ out.println("<center><font color=red>" + result + "</font></center>");
 }
 %>
 
-<%
+<%-- <%
 String errorMessage=request.getParameter("errorMessage");
 if(errorMessage!=null)
 {
 out.println("<font color='red'>"+errorMessage+"</font>");
 }
-%>
+%> --%>
+<jsp:include page="message.jsp"></jsp:include>
 </form>
 </body>
 </html>

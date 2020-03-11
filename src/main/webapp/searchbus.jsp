@@ -2,9 +2,7 @@
 <%@page import="com.chainsys.busticketapp.model.UserRegistration"%>
 <html>
 <body>
-<%UserRegistration user=(UserRegistration)session.getAttribute("User");
-%>
-<center>UserId:<%=user.getUserId() %></center>
+<center>USER ID:${User.userId}</center>
 <h2>BusTicketApp</h2>
 <img src="assets/images/busimage1.jpg"
 width="300" height="200"
@@ -12,7 +10,7 @@ alt="busimage"/>
 <h3>Find Bus</h3>
 
 
-<form action="NoOfBuses.jsp"><br/>
+<form action="SearchBusServlet"><br/>
 <body style="background-color:pink;">
 <br/>
 Enter Source: 
