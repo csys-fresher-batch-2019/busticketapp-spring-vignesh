@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.busticketapp.model.UserRegistration;
 import com.chainsys.busticketapp.service.ServiceLogin;
 @WebServlet("/Adminloginservlet")
 public class Adminloginservlet extends HttpServlet {

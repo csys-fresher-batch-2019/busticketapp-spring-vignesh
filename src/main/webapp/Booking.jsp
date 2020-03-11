@@ -27,7 +27,7 @@ LocalDate journeyDate = LocalDate.parse(jdate);
 %>
 <center>USER ID:<%=user.getUserId() %></center>
 <br/>
-<h2><center>Enter Booking Details..</center></h3>
+<h3><center>Enter Booking Details..</center></h3>
 <h3><center>Enter Bus No:<input type="number" name="bus_no" value="<%=busno%>"readonly/></center></h3>
 
 <h3><center>Enter PassengerId:<input type="number" name="passengerid"

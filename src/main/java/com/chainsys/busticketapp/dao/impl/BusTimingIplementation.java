@@ -18,11 +18,12 @@ import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.BusTiming;
 import com.chainsys.busticketapp.util.ConnectionUtil;
 import com.chainsys.busticketapp.util.ErrorMessages;
+
 @Repository
 public class BusTimingIplementation implements TimingDAO {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BusTicketManagerImplimentation.class);
 
-	public void addBusTiming(BusTiming obj) throws Exception {
+	public void addBusTiming(BusTiming obj) throws DBException {
 		String sql = "insert into bus_time(bus_no,amount,departure_time,arrival_time) values(?,?,?,?)";
 		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -33,29 +34,26 @@ public class BusTimingIplementation implements TimingDAO {
 			// pst.setString(3, obj.getDepartureTime());
 			// pst.setString(4, obj.getArrivalTime());
 			int row = pst.executeUpdate();
-			LOGGER.info(""+row);
-		} catch (Exception e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE);
+			LOGGER.info("" + row);
+		} catch (SQLException e) {
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
 
-	public void deleteBusTiming(int busNo) throws Exception {
+	public void deleteBusTiming(int busNo) throws DBException {
 		String sql = "delete from bus_time where bus_no=?";
 		LOGGER.debug(sql);
-		try (Connection con = ConnectionUtil.getConnection();) {
-			try (PreparedStatement pst = con.prepareStatement(sql);) {
-				pst.setInt(1, busNo);
-				int row = pst.executeUpdate();
-				LOGGER.info(""+row);
-			} catch (Exception e) {
-				throw new DBException(ErrorMessages.NO_DATA_FOUND);
-			}
-		} catch (Exception e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE);
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, busNo);
+			int row = pst.executeUpdate();
+			LOGGER.info("" + row);
+
+		} catch (SQLException e) {
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
 
-	public List<BusTiming> bustimeDetails() throws Exception {
+	public List<BusTiming> bustimeDetails() throws DBException {
 		String sql = "select * from bus_time";
 		LOGGER.debug(sql);
 		ArrayList<BusTiming> List = new ArrayList<>();
@@ -71,35 +69,30 @@ public class BusTimingIplementation implements TimingDAO {
 				List.add(obj);
 
 			}
-		} catch (Exception e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE);
+		} catch (SQLException e) {
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 		return List;
 
 	}
 
-	public BusTiming bustimes(int busNo) throws Exception {
+	public BusTiming bustimes(int busNo) throws DBException {
 		String sql = "select * from bus_time where bus_no=" + busNo;
 		BusTiming obj = null;
 		LOGGER.debug(sql);
-		// ArrayList<BusTiming> List=new ArrayList<>();
-		try (Connection con = ConnectionUtil.getConnection(); Statement stmt = con.createStatement();) {
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+		try (Connection con = ConnectionUtil.getConnection();
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);) {
 
-				if (rs.next()) {
-					obj = new BusTiming();
-					obj.setBusNo(rs.getInt("bus_no"));
-					obj.setAmount(rs.getInt("amount"));
-					obj.setDepartureTime(rs.getTime("departure_time").toLocalTime());
-					obj.setArrivalTime(rs.getTime("arrival_time").toLocalTime());
-					// List.add(obj);
-					// System.out.println(obj);
-				}
-			} catch (SQLException e) {
-				throw new Exception("Unable to execute resultset query");
+			if (rs.next()) {
+				obj = new BusTiming();
+				obj.setBusNo(rs.getInt("bus_no"));
+				obj.setAmount(rs.getInt("amount"));
+				obj.setDepartureTime(rs.getTime("departure_time").toLocalTime());
+				obj.setArrivalTime(rs.getTime("arrival_time").toLocalTime());
 			}
-		} catch (Exception e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE);
+		} catch (SQLException e) {
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 		return obj;
 

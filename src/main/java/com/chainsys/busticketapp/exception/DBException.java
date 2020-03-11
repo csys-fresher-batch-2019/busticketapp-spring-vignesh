@@ -7,4 +7,8 @@ public class DBException extends Exception {
 		super(msg);
 	}
 
+	public DBException(String msg, Throwable t) {
+		super(msg,t);
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.chainsys.busticketapp.model;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

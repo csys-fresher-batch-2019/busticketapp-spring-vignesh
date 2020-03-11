@@ -13,26 +13,25 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.chainsys.busticketapp.exception.DBException;
-import com.chainsys.busticketapp.util.ErrorMessages; 
+import com.chainsys.busticketapp.exception.DBException; 
 public class Mail {
 	public static void send(final String from,final String password,String to,String sub,String Msg,int id) throws IOException, DBException
-	{//  Logger logger = Logger.getInstance();
-		Properties props = new Properties();    
-        props.put("mail.smtp.host", "smtp.gmail.com");    
-        props.put("mail.smtp.socketFactory.port", "465");    
-        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");    
-        props.put("mail.smtp.auth", "true");    
-        props.put("mail.smtp.port", "465");    
-        Session session = Session.getDefaultInstance(props,new javax.mail.Authenticator() 
-        {    
-        	protected PasswordAuthentication getPasswordAuthentication() 
-        	{    
-        		return new PasswordAuthentication(from,password);  
-        	}      
-        });    
+	{	
         try 
         {    
+        	Properties props = new Properties();    
+            props.put("mail.smtp.host", "smtp.gmail.com");    
+            props.put("mail.smtp.socketFactory.port", "465");    
+            props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");    
+            props.put("mail.smtp.auth", "true");    
+            props.put("mail.smtp.port", "465");    
+            Session session = Session.getInstance(props,new javax.mail.Authenticator() 
+            {    
+            	protected PasswordAuthentication getPasswordAuthentication() 
+            	{    
+            		return new PasswordAuthentication(from,password);  
+            	}      
+            });    
         	MimeMessage message = new MimeMessage(session);    
         	message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
         	message.setSubject(sub);  
@@ -50,7 +49,7 @@ public class Mail {
         	messageBodyPart5.setText("\n\t Team busticketbooking...");
 
         	/*String filename = "SendAttachment.java";  
-        	FileDataSource source = new FileDataSource("./src/test/java/com/chainsys/PayrollApp/SendMailSSL.java");  
+        	FileDataSource source = new FileDataSource("./src/test/java/com/chainsys/busticketapp/SendMailSSL.java");  
         	messageBodyPart2.setDataHandler(new DataHandler(source));  
         	messageBodyPart2.setFileName(filename);  
             */
@@ -66,7 +65,7 @@ public class Mail {
         	System.out.println("message sent successfully");    
         }
         catch (Exception e) {
-			throw new DBException(ErrorMessages.ADMIN_LOGIN_FAILED);
+        	e.printStackTrace();
 		}
 	}  
 }

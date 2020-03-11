@@ -1,7 +1,7 @@
 package com.chainsys.busticketapp.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +40,7 @@ public class MyTicketServlet extends HttpServlet {
 		//Booking ul= new Booking();
 		//ul.setUserId(userid);
 		try {
-			ArrayList<Booking> listMyTickets = dao.listMyTickets(userid);
+			List<Booking> listMyTickets = dao.listMyTickets(userid);
 			request.setAttribute("MyTickets",listMyTickets);
 			//System.out.println(listMyTickets);
 		} catch (Exception e) {

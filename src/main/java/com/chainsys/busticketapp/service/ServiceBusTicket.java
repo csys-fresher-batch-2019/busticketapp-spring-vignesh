@@ -11,6 +11,7 @@ import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.exception.ServiceException;
 import com.chainsys.busticketapp.exception.ValidatorException;
 import com.chainsys.busticketapp.model.ListOfBuses;
+import com.chainsys.busticketapp.validator.SourceDestinationValidator;
 @Service
 public class ServiceBusTicket {
 	@Autowired
@@ -38,7 +39,8 @@ public class ServiceBusTicket {
 
 		List<ListOfBuses> sourceStationlist;
 		try {
-			validateSearch(busSource, busDestination);
+			SourceDestinationValidator sourceValidator = new SourceDestinationValidator();
+			sourceValidator.validateSearch(busSource, busDestination);
 			sourceStationlist = busticket.sourceStationlist(busSource, busDestination);
 		} catch (DBException | ValidatorException e) {
 			e.printStackTrace();
@@ -47,13 +49,6 @@ public class ServiceBusTicket {
 		return sourceStationlist;
 	}
 
-	public void validateSearch(String busSource, String busDestination) throws ValidatorException {
-		if (busSource == null || busSource.equals("") || busSource.trim().equals("")) {
-			throw new ValidatorException("Invalid Source");
-		}
-		if (busDestination == null) {
-			throw new ValidatorException("Invalid destination");
-		}
-	}
+	
 
 }

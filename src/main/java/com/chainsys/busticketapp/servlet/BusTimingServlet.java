@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chainsys.busticketapp.dao.SeatAvailabilityDAO;
-import com.chainsys.busticketapp.dao.impl.BusTimingIplementation;
 import com.chainsys.busticketapp.dao.impl.SeatAvailabilityimplementation;
 import com.chainsys.busticketapp.model.BusTiming;
 import com.chainsys.busticketapp.service.ServiceBusTiming;

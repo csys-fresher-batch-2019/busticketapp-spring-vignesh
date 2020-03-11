@@ -1,7 +1,8 @@
 package com.chainsys.busticketapp.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Booking {
 
@@ -71,6 +72,7 @@ public class Booking {
 	private int passengerId;
 	private int noOfTicket;
 	private int totalAmount;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")	
 	private LocalDateTime journeyDate;
 	private String status;
 	private int userId;

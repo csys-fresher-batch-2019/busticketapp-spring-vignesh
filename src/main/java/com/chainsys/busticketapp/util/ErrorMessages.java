@@ -18,7 +18,7 @@ public class ErrorMessages {
 		public static final String NO_DATA_FOUND
 		="NO DATA FOUND";
 
-		public static final String INORRECT_VALUE
+		public static final String STATEMENT_FAILED
 		="Incorrect value";
 
 		public static final String INVALID_PASSWORD
