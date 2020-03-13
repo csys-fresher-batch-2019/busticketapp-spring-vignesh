@@ -9,15 +9,15 @@ import com.chainsys.busticketapp.model.ListOfBuses;
 public interface BusTicketDAO {
 	
 	//@SqlUpdate("insert into bus_list (bus_no,bus_name,bus_source,bus_destination,class)values(?,?,?,?,?)")
-	void addBuslist(String busName, String busSource, String busDestination, String clazz) throws DBException;
+	void save(String busName, String busSource, String busDestination, String clazz) throws DBException;
 
-	//void deleteBuslist(int busNo) throws DBException;
+	//void delete(int busNo) throws DBException;
 
-	int noOfBuses() throws DBException;
+	int count() throws DBException;
 
-	HashMap<String, Integer> noOfBuslist() throws DBException;
+	HashMap<String, Integer> findAllByBusName() throws DBException;
 	
-	public List<ListOfBuses> sourceStationlist(String busSource, String busDestination) throws DBException;
+	public List<ListOfBuses> findBySourceDestination(String busSource, String busDestination) throws DBException;
 	
 	}
 

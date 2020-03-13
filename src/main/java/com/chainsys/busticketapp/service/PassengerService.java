@@ -11,15 +11,15 @@ public class PassengerService {
 	private PassengerDAO passenger;
 	
 	public void addPassengerlist(Passenger obj)throws Exception{
-		passenger.addPassengerlist(obj);
+		passenger.save(obj);
 	}
 
 	public void deletePassengerlist(int passengerId) throws Exception{
-		passenger.deletePassengerlist(passengerId);
+		passenger.delete(passengerId);
 	}
 
 	public void updatePassengerlist(long passengerContact, int passengerId) throws Exception{
-		passenger.updatePassengerlist(passengerContact, passengerId);
+		passenger.update(passengerContact, passengerId);
 	}
 
 }

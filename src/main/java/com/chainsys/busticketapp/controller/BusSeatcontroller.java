@@ -18,7 +18,7 @@ public class BusSeatcontroller {
 	@PostMapping("/addseat")
 	public void addAvailableSeatlist(@RequestBody SeatAvailability obj) {
 		try {
-			seat.addAvailableSeatlist(obj);
+			seat.save(obj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -26,11 +26,11 @@ public class BusSeatcontroller {
 	@PostMapping("/updateseat")
 	public void updateAvailableSeatlist(int availableSeats, int busNo) throws Exception {
 	
-		seat.updateAvailableSeatlist(availableSeats, busNo);
+		seat.update(availableSeats, busNo);
 	}
 	@GetMapping("/viewseat")
 	public int availableSeatDetails(int busNo) throws Exception {
-		 int seats=seat.availableSeatDetails(busNo);
+		 int seats=seat.findByBusNo(busNo);
 		return seats;
 		
 	}

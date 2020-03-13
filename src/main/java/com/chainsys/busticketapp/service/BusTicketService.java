@@ -20,7 +20,7 @@ public class BusTicketService {
 	// static Jdbi jdbi=ConnectionUtil.getJdbi();
 	// static BusTicketDAO busticket=jdbi.onDemand(BusTicketDAO.class);
 	public void addBuslist(int busNo, String busName, String busSource, String busDestination, String clazz) throws Exception {
-		busticket.addBuslist(busName, busSource, busDestination, clazz);
+		busticket.save(busName, busSource, busDestination, clazz);
 	}
 
 	/*void deleteBuslist(int busNo) throws Exception {
@@ -28,11 +28,11 @@ public class BusTicketService {
 	}
 */
 	public int noOfBuses() throws Exception {
-		return busticket.noOfBuses();
+		return busticket.count();
 	}
 
 	HashMap<String, Integer> noOfBuslist() throws Exception {
-		return busticket.noOfBuslist();
+		return busticket.findAllByBusName();
 	}
 
 	public List<ListOfBuses> sourceStationlist(String busSource, String busDestination) throws ServiceException {
@@ -41,7 +41,7 @@ public class BusTicketService {
 		try {
 			SourceDestinationValidator sourceValidator = new SourceDestinationValidator();
 			sourceValidator.validateSearch(busSource, busDestination);
-			sourceStationlist = busticket.sourceStationlist(busSource, busDestination);
+			sourceStationlist = busticket.findBySourceDestination(busSource, busDestination);
 		} catch (DBException | ValidatorException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());

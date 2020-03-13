@@ -44,7 +44,7 @@ public class BookingDAOImplementation implements BookingDAO {
 		return email;
 	}
 
-	public void addReservationList(Booking obj) throws DBException {
+	public void save(Booking obj) throws DBException {
 		try (Connection con = ConnectionUtil.getConnection();
 				CallableStatement stmt = con.prepareCall("{call ticket_booking(?,?,?,?,?,?)}");) {
 			stmt.setInt(1, obj.getBusNo());
@@ -68,7 +68,7 @@ public class BookingDAOImplementation implements BookingDAO {
 
 	}
 
-	public void cancelReservationList(int ticketNo) throws DBException {
+	public void cancelTicket(int ticketNo) throws DBException {
 		String sql = "delete from reserve where ticket_no=?";
 		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection();) {
@@ -82,7 +82,7 @@ public class BookingDAOImplementation implements BookingDAO {
 		}
 	}
 
-	public ArrayList<Booking> bookingDetails() throws DBException {
+	public ArrayList<Booking> findAll() throws DBException {
 		String sql = "select * from reserve";
 		LOGGER.debug(sql);
 		ArrayList<Booking> List = new ArrayList<>();
@@ -160,7 +160,7 @@ public class BookingDAOImplementation implements BookingDAO {
 		LOGGER.info("No.of.rows updated:" + row);
 	}
 
-	public ArrayList<Booking> listMyTickets(int userId) throws DBException {
+	public ArrayList<Booking> findMyTickets(int userId) throws DBException {
 		String sql = "select * from reserve where user_id=?";
 		LOGGER.debug(sql);
 		ArrayList<Booking> myticket = new ArrayList<>();

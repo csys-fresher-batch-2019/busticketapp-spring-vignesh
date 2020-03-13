@@ -23,7 +23,7 @@ import com.chainsys.busticketapp.util.ErrorMessages;
 public class BusTimingIplementation implements TimingDAO {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BusTicketManagerImplimentation.class);
 
-	public void addBusTiming(BusTiming obj) throws DBException {
+	public void save(BusTiming obj) throws DBException {
 		String sql = "insert into bus_time(bus_no,amount,departure_time,arrival_time) values(?,?,?,?)";
 		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -40,7 +40,7 @@ public class BusTimingIplementation implements TimingDAO {
 		}
 	}
 
-	public void deleteBusTiming(int busNo) throws DBException {
+	public void delete(int busNo) throws DBException {
 		String sql = "delete from bus_time where bus_no=?";
 		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -53,7 +53,7 @@ public class BusTimingIplementation implements TimingDAO {
 		}
 	}
 
-	public List<BusTiming> bustimeDetails() throws DBException {
+	public List<BusTiming> findAll() throws DBException {
 		String sql = "select * from bus_time";
 		LOGGER.debug(sql);
 		ArrayList<BusTiming> List = new ArrayList<>();
@@ -76,7 +76,7 @@ public class BusTimingIplementation implements TimingDAO {
 
 	}
 
-	public BusTiming bustimes(int busNo) throws DBException {
+	public BusTiming findByBusNo(int busNo) throws DBException {
 		String sql = "select * from bus_time where bus_no=" + busNo;
 		BusTiming obj = null;
 		LOGGER.debug(sql);

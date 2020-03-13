@@ -11,10 +11,10 @@ public class UserRegistrationService {
 	private UserRegistrationDAO userregister;
 	
 	public void newUserRegister(UserRegistration obj) throws Exception{
-		userregister.newUserRegister(obj);
+		userregister.save(obj);
 	}
 	public void removeUser(int userId) throws Exception{
-		userregister.removeUser(userId);
+		userregister.remove(userId);
 	}
 
 }

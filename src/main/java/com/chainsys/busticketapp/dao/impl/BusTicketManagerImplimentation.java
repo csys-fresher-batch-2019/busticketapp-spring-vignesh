@@ -35,7 +35,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BusTicketManagerImplimentation.class);
 
-	public void addBuslist(String busName, String busSource, String busDestination, String clazz) throws DBException {
+	public void save(String busName, String busSource, String busDestination, String clazz) throws DBException {
 		String sql = "insert into bus_list (bus_no,bus_name,bus_source,bus_destination,class)values(bus_no_seq.nextval,?,?,?,?)";
 
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -54,7 +54,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 		}
 	}
 
-	/*public void deleteBuslist(int busNo) throws DBException {
+/*	public void delete(int busNo) throws DBException {
 		String sql1 = "delete from seat_availability where bus_no=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
 			pst.setInt(1, busNo);
@@ -79,7 +79,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 		}
 	}
 */
-	public int noOfBuses() throws DBException {
+	public int count() throws DBException {
 		String sql = "select count(*) as busCount  from bus_list";
 		LOGGER.debug(sql);
 
@@ -99,7 +99,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 
 	// String sql = "select bus_name,bl.bus_no, bt.time from bus_list bl, bus_timing
 	// bt where bl.bus_no = bt.bus_no";
-	public HashMap<String, Integer> noOfBuslist() throws DBException {
+	public HashMap<String, Integer> findAllByBusName() throws DBException {
 		String sql = "select bus_name,bus_no from bus_list";
 		LOGGER.debug(sql);
 		HashMap<String, Integer> obj = new HashMap<String, Integer>();
@@ -120,7 +120,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 		return obj;
 	}
 
-	public List<ListOfBuses> sourceStationlist(String busSource, String busDestination) throws DBException {
+	public List<ListOfBuses> findBySourceDestination(String busSource, String busDestination) throws DBException {
 		String sql = "select * from bus_list_view where bus_source=? and bus_destination=?";
 
 		List<ListOfBuses> source = new ArrayList<>();

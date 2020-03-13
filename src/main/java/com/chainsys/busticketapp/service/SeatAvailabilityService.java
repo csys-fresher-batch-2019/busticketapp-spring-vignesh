@@ -17,21 +17,21 @@ public class SeatAvailabilityService {
 	private SeatAvailabilityDAO seatavaialbility;
 	
 	public void addAvailableSeatlist(SeatAvailability obj) throws Exception{
-		seatavaialbility.addAvailableSeatlist(obj);
+		seatavaialbility.save(obj);
 	}
 
 	public void deleteAvailableSeatlist(int busNo) throws Exception{
-		seatavaialbility.deleteAvailableSeatlist(busNo);
+		seatavaialbility.delete(busNo);
 	}
 
 	public void updateAvailableSeatlist(int availableSeats, int busNo) throws Exception{
-		seatavaialbility.updateAvailableSeatlist(availableSeats, busNo);
+		seatavaialbility.update(availableSeats, busNo);
 	}
 	
 	public int availableSeatDetails(int busNo) throws Exception{
 		int availableSeats;
 		try {
-			availableSeats = seatavaialbility.availableSeatDetails(busNo);
+			availableSeats = seatavaialbility.findByBusNo(busNo);
 		} catch (DBException e) {
 			throw new ServiceException(e.getMessage());
 		}
@@ -43,7 +43,7 @@ public class SeatAvailabilityService {
 		try{
 			SourceDestinationValidator sourceValidator = new SourceDestinationValidator();
 			sourceValidator.validateSearch(source, destination);
-			availablebusseats=seatavaialbility.availablebusseats(source, destination);
+			availablebusseats=seatavaialbility.findBySourceDestination(source, destination);
 		}catch (DBException e) {
 			throw new ServiceException(e.getMessage());
 	}

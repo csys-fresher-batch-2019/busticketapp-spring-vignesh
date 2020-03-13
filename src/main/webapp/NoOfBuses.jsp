@@ -9,6 +9,7 @@
 </head>
 <body>
 <body style="background-color:yellow;">
+<center>USER ID:${User.userId}</center>
 	<h3>List Buses</h3>
 	<table border="1">
 	<a href="searchbus.jsp">Back

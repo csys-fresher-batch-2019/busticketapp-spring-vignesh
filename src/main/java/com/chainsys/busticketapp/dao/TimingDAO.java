@@ -7,12 +7,12 @@ import com.chainsys.busticketapp.model.BusTiming;
 
 public interface TimingDAO {
 	
-	void addBusTiming(BusTiming obj) throws DBException;
+	void save(BusTiming obj) throws DBException;
 
-	void deleteBusTiming(int busNo) throws DBException;
+	void delete(int busNo) throws DBException;
 
-	List<BusTiming> bustimeDetails() throws DBException;
+	List<BusTiming> findAll() throws DBException;
 	
-	public BusTiming bustimes(int busNo) throws DBException;
+	public BusTiming findByBusNo(int busNo) throws DBException;
 
 }

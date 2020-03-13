@@ -5,7 +5,7 @@ import com.chainsys.busticketapp.model.UserRegistration;
 
 public interface UserRegistrationDAO {
 	
-	public void newUserRegister(UserRegistration obj) throws DBException;
+	public void save(UserRegistration obj) throws DBException;
 
-	public void removeUser(int userId) throws DBException;
+	public void remove(int userId) throws DBException;
 }

@@ -36,7 +36,7 @@ public class SearchBusServlet extends HttpServlet {
 		HttpSession sessiondate=request.getSession();
 		 sessiondate.setAttribute("journeydate", journeydate);
 		try {
-			List<ListOfBuses> list = dao.sourceStationlist(BusSource, BusDestination);
+			List<ListOfBuses> list = dao.findBySourceDestination(BusSource, BusDestination);
 			request.setAttribute("busList",list);
 			//dao.sourceStationlist(BusSource, BusDestination);
 			RequestDispatcher rs = request.getRequestDispatcher("NoOfBuses.jsp");

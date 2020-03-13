@@ -13,19 +13,19 @@ public class BusTimingService {
 	private TimingDAO timeing;
 	
 	void addBusTiming(BusTiming obj) throws Exception{
-		timeing.addBusTiming(obj);
+		timeing.save(obj);
 	}
 
 	void deleteBusTiming(int busNo) throws Exception{
-		timeing.deleteBusTiming(busNo);
+		timeing.delete(busNo);
 	}
 
 	List<BusTiming> bustimeDetails() throws Exception{
-	return timeing.bustimeDetails();	
+	return timeing.findAll();	
 	}
 	
 	public BusTiming bustimes(int busNo) throws Exception{
-		return timeing.bustimes(busNo);
+		return timeing.findByBusNo(busNo);
 	}
 	
 

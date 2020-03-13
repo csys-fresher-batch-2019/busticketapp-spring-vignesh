@@ -42,7 +42,7 @@ public class BusTimingServlet extends HttpServlet {
 			session.setAttribute("BusNo", bNo);
 
 			SeatAvailabilityDAO dao = new SeatAvailabilityimplementation();
-			int availableseats = dao.availableSeatDetails(bNo);
+			int availableseats = dao.findByBusNo(bNo);
 			request.setAttribute("AVAILABLE_SEATS", availableseats);
 
 		} catch (Exception e) {

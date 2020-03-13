@@ -24,7 +24,7 @@ public class Bookingcontroller {
 	public ResponseEntity<?> addBusTiming(@RequestBody Booking u) {
 
 		try {
-			book.addReservationList(u);
+			book.save(u);
 			
 		} catch (DBException e) {
 			e.printStackTrace();

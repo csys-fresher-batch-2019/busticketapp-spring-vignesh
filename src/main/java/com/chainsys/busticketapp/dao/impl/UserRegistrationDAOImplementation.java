@@ -18,7 +18,7 @@ public class UserRegistrationDAOImplementation implements UserRegistrationDAO {
 	UserRegistration obj = new UserRegistration();
 	private static final Logger LOGGER = LoggerFactory.getLogger(BookingDAOImplementation.class);
 
-	public void newUserRegister(UserRegistration obj) throws DBException {
+	public void save(UserRegistration obj) throws DBException {
 		String sql = "insert into User_register(name,Email_id,password,contact,user_id) values(?,?,?,?,user_id.nextval)";
 		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -33,7 +33,7 @@ public class UserRegistrationDAOImplementation implements UserRegistrationDAO {
 		}
 	}
 
-	public void removeUser(int userId) throws DBException {
+	public void remove(int userId) throws DBException {
 		String sql = "delete from User_register where user_id=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setInt(1, userId);

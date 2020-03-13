@@ -16,7 +16,7 @@ public class BusTimingcontroller {
 	@PostMapping("/addBusTime")
 	public void addBusTiming(@RequestBody BusTiming u) throws Exception {
 	
-		 bustime.addBusTiming(u);	
+		 bustime.save(u);	
 
 	}
 

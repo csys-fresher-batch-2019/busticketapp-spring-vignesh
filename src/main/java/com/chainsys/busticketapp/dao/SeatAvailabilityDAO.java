@@ -7,14 +7,14 @@ import com.chainsys.busticketapp.model.SeatAvailability;
 
 public interface SeatAvailabilityDAO {
 	
-	public void addAvailableSeatlist(SeatAvailability obj) throws DBException;
+	public void save(SeatAvailability obj) throws DBException;
 
-	public void deleteAvailableSeatlist(int busNo) throws DBException;
+	public void delete(int busNo) throws DBException;
 
-	public void updateAvailableSeatlist(int availableSeats, int busNo) throws DBException;
+	public void update(int availableSeats, int busNo) throws DBException;
 	
-	public int availableSeatDetails(int busNo) throws DBException;
+	public int findByBusNo(int busNo) throws DBException;
 	
-	public List<SeatAvailability> availablebusseats(String source, String destination) throws DBException;
+	public List<SeatAvailability> findBySourceDestination(String source, String destination) throws DBException;
 
 }

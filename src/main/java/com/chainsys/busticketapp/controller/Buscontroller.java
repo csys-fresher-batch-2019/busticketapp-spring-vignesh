@@ -25,7 +25,7 @@ public class Buscontroller {
 			@RequestParam("destination") String busDestination, @RequestParam("class") String clazz) {
 
 		try {
-			busimpl.addBuslist(busName, busSource, busDestination, clazz);
+			busimpl.save(busName, busSource, busDestination, clazz);
 		} catch (DBException e) {
 			e.printStackTrace();
 		}
@@ -36,7 +36,7 @@ public class Buscontroller {
 			@RequestParam("destination") String busDestination) {
 		List<ListOfBuses> source = null;
 		try {
-			source = busimpl.sourceStationlist(busSource, busDestination);
+			source = busimpl.findBySourceDestination(busSource, busDestination);
 		} catch (DBException e) {
 			e.printStackTrace();
 		}
