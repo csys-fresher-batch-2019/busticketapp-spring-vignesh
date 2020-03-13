@@ -39,7 +39,7 @@ public class LoginService {
 		try {
 			
 			uservalidator.validateSearch(emailId,pass);
-			userLogin=login.user(emailId, pass);
+			userLogin=login.userLogin(emailId, pass);
 			
 			Logger.info(""+userLogin);
 			if ( userLogin == null) {

@@ -7,17 +7,19 @@ import com.chainsys.busticketapp.model.Booking;
 
 public interface BookingDAO {
 	public String getEmail(int userId) throws DBException;
-	
+
 	void addReservationList(Booking obj) throws DBException;
 
 	void cancelReservationList(int busNo) throws DBException;
 
 	List<Booking> bookingDetails() throws DBException;
-	
+
 	public int getBusNo(int ticketNo) throws DBException;
 
-	public void updateNoOfTicket(int ticketNo, int passengerId, int noOfTicket) throws DBException;
-	
+	public void updateTotalAmount(int ticketNo, int passengerId, int noOfTicket) throws DBException;
+
 	List<Booking> listMyTickets(int userId) throws DBException;
+
+	boolean updateSeatAvailability(int noOfTickets, int busId) throws DBException;
 
 }

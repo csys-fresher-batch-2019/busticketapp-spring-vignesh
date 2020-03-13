@@ -31,7 +31,7 @@ public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 			LOGGER.info("" + row);
 
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("Unable to execute save AvailableSeats", e);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 			int row = pst.executeUpdate();
 			LOGGER.info("" + row);
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("unable to execute delete AvailablrSeats", e);
 		}
 	}
 
@@ -55,7 +55,7 @@ public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 			int row = pst.executeUpdate();
 			LOGGER.info("" + row);
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("unable to execute update AvailableSeats", e);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("unable to execute Seats find by busNo", e);
 		}
 		return seats;
 	}

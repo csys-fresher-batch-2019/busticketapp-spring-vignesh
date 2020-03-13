@@ -26,7 +26,7 @@ public class Buscontroller {
 
 		try {
 			busimpl.addBuslist(busName, busSource, busDestination, clazz);
-		} catch (Exception e) {
+		} catch (DBException e) {
 			e.printStackTrace();
 		}
 	}

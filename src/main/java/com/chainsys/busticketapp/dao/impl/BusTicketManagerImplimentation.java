@@ -90,8 +90,8 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 			if (rs.next()) {
 				busCount = rs.getInt("busCount");
 			}
-		} catch (Exception e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+		} catch (SQLException e) {
+			throw new DBException("Unable to execute busCount", e);
 		}
 		return busCount;
 
@@ -115,7 +115,7 @@ public class BusTicketManagerImplimentation implements BusTicketDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("Unable to execute no.of Buses", e);
 		}
 		return obj;
 	}

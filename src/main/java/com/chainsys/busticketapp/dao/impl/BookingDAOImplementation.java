@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -28,8 +27,10 @@ public class BookingDAOImplementation implements BookingDAO {
 	public String getEmail(int userId) throws DBException {
 		String email = null;
 		try (Connection con = ConnectionUtil.getConnection();) {
-			String sql = "select Email_id from user_register where user_id =" + userId;
-			try (Statement stm = con.createStatement(); ResultSet rs = stm.executeQuery(sql);) {
+			String sql = "select Email_id from user_register where user_id = ?";
+			try (PreparedStatement pst = con.prepareStatement(sql);) {
+				pst.setInt(1, userId);
+				ResultSet rs = pst.executeQuery();
 				LOGGER.debug("" + rs);
 				if (rs.next()) {
 					email = rs.getString("Email_id");
@@ -79,16 +80,15 @@ public class BookingDAOImplementation implements BookingDAO {
 		} catch (SQLException e) {
 			throw new DBException("unable to execute cancel ticket", e);
 		}
-
 	}
 
 	public ArrayList<Booking> bookingDetails() throws DBException {
 		String sql = "select * from reserve";
 		LOGGER.debug(sql);
 		ArrayList<Booking> List = new ArrayList<>();
-		try (Connection con = ConnectionUtil.getConnection(); Statement stmt = con.createStatement();) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
 					Booking obj = new Booking();
 					obj.setTicketNo(rs.getInt("ticket_no"));
@@ -114,7 +114,6 @@ public class BookingDAOImplementation implements BookingDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setInt(1, ticketNo);
 			try (ResultSet rs = pst.executeQuery();) {
-
 				if (rs.next()) {
 					busid = rs.getInt("bus_no");
 				}
@@ -129,53 +128,56 @@ public class BookingDAOImplementation implements BookingDAO {
 		return busid;
 	}
 
-	public void updateNoOfTicket(int ticketNo, int passengerId, int noOfTicket) throws DBException {
-		int busid = getBusNo(ticketNo);
+	public boolean updateSeatAvailability(int noOfTickets, int busId) throws DBException {
+		int row = 0;
+		String sql = "update seat_availability set available_seats= (available_seats+?) where bus_no=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, noOfTickets);
+			pst.setInt(2, busId);
+			row = pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new DBException("Unable to update available seat availability", e);
+		}
+		if (row > 0)
+			return true;
+		else
+			return false;
+	}
 
-		// String sql2 = "update reserve set no_of_ticket=? where ticket_no=? and
-		// pas_id=?";
-		// System.out.println(sql2);
-		String sql = "update seat_availability set available_seats= available_seats+" + noOfTicket + " where bus_no="
-				+ busid;
-		try (Connection con = ConnectionUtil.getConnection(); Statement stmt = con.createStatement();) {
-			int row = stmt.executeUpdate(sql);
-			String sql1 = "update reserve r set total_amount = ( (no_of_ticket - ?)*(select amount from bus_time where bus_no=r.bus_no)),"
-					+ "no_of_ticket=no_of_ticket- ? where ticket_no = ?";
-			try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
-				pst1.setInt(1, noOfTicket);
-				pst1.setInt(2, noOfTicket);
-				pst1.setInt(3, ticketNo);
-				LOGGER.debug(sql1);
-				int row1 = pst1.executeUpdate();
-				LOGGER.info("" + row);
-				LOGGER.info("" + row1);
-			}
-		} catch (DBException | SQLException e) {
+	public void updateTotalAmount(int ticketNo, int passengerId, int noOfTicket) throws DBException {
+		int row = 0;
+		String sql = "update reserve r set total_amount = ( (no_of_ticket - ?)*(select amount from bus_time where bus_no=r.bus_no)),"
+				+ "no_of_ticket=no_of_ticket- ? where ticket_no = ?";
+
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, noOfTicket);
+			pst.setInt(2, noOfTicket);
+			pst.setInt(3, ticketNo);
+			row = pst.executeUpdate();
+		} catch (SQLException e) {
 			throw new DBException("unable to execute updateNoOfTicket", e);
 		}
-
+		LOGGER.info("No.of.rows updated:" + row);
 	}
 
 	public ArrayList<Booking> listMyTickets(int userId) throws DBException {
 		String sql = "select * from reserve where user_id=?";
 		LOGGER.debug(sql);
 		ArrayList<Booking> myticket = new ArrayList<>();
-		try (Connection con = ConnectionUtil.getConnection(); Statement stmt = con.createStatement();) {
-			try (PreparedStatement pst = con.prepareStatement(sql);) {
-				pst.setInt(1, userId);
-				try (ResultSet rs = pst.executeQuery();) {
-					while (rs.next()) {
-						Booking obj = new Booking();
-						obj.setTicketNo(rs.getInt("ticket_no"));
-						obj.setBusNo(rs.getInt("bus_no"));
-						obj.setPassengerId(rs.getInt("pas_id"));
-						obj.setNoOfTicket(rs.getInt("no_of_ticket"));
-						obj.setJourneyDate(rs.getTimestamp("journey_date").toLocalDateTime());
-						obj.setTotalAmount(rs.getInt("total_amount"));
-						obj.setStatus(rs.getString("status"));
-						obj.setUserId(rs.getInt("user_id"));
-						myticket.add(obj);
-					}
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, userId);
+			try (ResultSet rs = pst.executeQuery();) {
+				while (rs.next()) {
+					Booking obj = new Booking();
+					obj.setTicketNo(rs.getInt("ticket_no"));
+					obj.setBusNo(rs.getInt("bus_no"));
+					obj.setPassengerId(rs.getInt("pas_id"));
+					obj.setNoOfTicket(rs.getInt("no_of_ticket"));
+					obj.setJourneyDate(rs.getTimestamp("journey_date").toLocalDateTime());
+					obj.setTotalAmount(rs.getInt("total_amount"));
+					obj.setStatus(rs.getString("status"));
+					obj.setUserId(rs.getInt("user_id"));
+					myticket.add(obj);
 				}
 			}
 		} catch (SQLException e) {
@@ -183,7 +185,6 @@ public class BookingDAOImplementation implements BookingDAO {
 		}
 
 		return myticket;
-
 	}
 
 }

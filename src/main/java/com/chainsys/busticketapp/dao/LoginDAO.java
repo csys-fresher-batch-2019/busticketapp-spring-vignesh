@@ -11,5 +11,5 @@ public interface LoginDAO {
 	public boolean adminLogin(String adminname, String pass) throws DBException;
 	
 	@SqlUpdate("select name from UserRegister where Email_id=? and password=?")
-	public UserRegistration user(String emailId, String pass) throws DBException ;
+	public UserRegistration userLogin(String emailId, String pass) throws DBException ;
 }

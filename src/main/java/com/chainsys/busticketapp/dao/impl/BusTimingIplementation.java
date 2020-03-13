@@ -36,7 +36,7 @@ public class BusTimingIplementation implements TimingDAO {
 			int row = pst.executeUpdate();
 			LOGGER.info("" + row);
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("unable to execute save bustime", e);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class BusTimingIplementation implements TimingDAO {
 			LOGGER.info("" + row);
 
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("unable to execute delete bustime", e);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class BusTimingIplementation implements TimingDAO {
 
 			}
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("unable to execute bustime details", e);
 		}
 		return List;
 

@@ -31,7 +31,7 @@ public class PassengerImplementation implements PassengerDAO {
 			LOGGER.info("" + row);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DBException("Unable to execute AddPassenger", e);
+			throw new DBException("Unable to execute save Passenger", e);
 		}
 	}
 

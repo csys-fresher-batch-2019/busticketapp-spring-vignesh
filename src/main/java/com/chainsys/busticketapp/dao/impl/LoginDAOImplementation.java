@@ -28,17 +28,15 @@ public class LoginDAOImplementation implements LoginDAO {
 				if (rs.next()) {
 					valid = true;
 				}
-			} catch (SQLException e) {
-				throw new Exception("Unable to execute login query");
-			}
-		} catch (Exception e) {
+			} 
+		} catch (SQLException e) {
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 		return valid;
 	}
 	// user Login
 
-	public UserRegistration user(String emailId, String password) throws DBException {
+	public UserRegistration userLogin(String emailId, String password) throws DBException {
 		String sql = "select user_id,name,Email_id from User_register where Email_id=? and password=?";
 		UserRegistration u = null;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
@@ -56,7 +54,7 @@ public class LoginDAOImplementation implements LoginDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException("unable to execute user login", e);
 		}
 		return u;
 	}
