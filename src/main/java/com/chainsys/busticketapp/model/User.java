@@ -1,22 +1,21 @@
 package com.chainsys.busticketapp.model;
 
-public class UserRegistration {
-	private String UserName;
+public class User {
 
 	public String getUserName() {
-		return UserName;
+		return userName;
 	}
 
 	public void setUserName(String userName) {
-		UserName = userName;
+		this.userName = userName;
 	}
 
 	public String getEmailId() {
-		return EmailId;
+		return emailId;
 	}
 
 	public void setEmailId(String emailId) {
-		EmailId = emailId;
+		this.emailId = emailId;
 	}
 
 	public String getPassword() {
@@ -36,22 +35,23 @@ public class UserRegistration {
 	}
 
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 
-	private String EmailId;
+	private String userName;
+	private String emailId;
 	private String password;
 	private Long contactNumber;
-	private int UserId;
+	private int userId;
 
 	@Override
 	public String toString() {
-		return "UserLogin [UserName=" + UserName + ", EmailId=" + EmailId + ", password=" + password
-				+ ", contactNumber=" + contactNumber + ", UserId=" + UserId + "]";
+		return "User [userName=" + userName + ", emailId=" + emailId + ", password=" + password + ", contactNumber="
+				+ contactNumber + ", userId=" + userId + "]";
 	}
 
 }

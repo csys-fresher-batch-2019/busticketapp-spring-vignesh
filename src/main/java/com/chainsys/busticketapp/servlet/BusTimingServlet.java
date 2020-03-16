@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chainsys.busticketapp.dao.SeatAvailabilityDAO;
-import com.chainsys.busticketapp.dao.impl.SeatAvailabilityimplementation;
+import com.chainsys.busticketapp.dao.impl.SeatAvailabilityDAOImplementation;
 import com.chainsys.busticketapp.model.BusTiming;
 import com.chainsys.busticketapp.service.BusTimingService;
 
@@ -41,7 +41,7 @@ public class BusTimingServlet extends HttpServlet {
 			session.setAttribute("Timing", bustime);
 			session.setAttribute("BusNo", bNo);
 
-			SeatAvailabilityDAO dao = new SeatAvailabilityimplementation();
+			SeatAvailabilityDAO dao = new SeatAvailabilityDAOImplementation();
 			int availableseats = dao.findByBusNo(bNo);
 			request.setAttribute("AVAILABLE_SEATS", availableseats);
 

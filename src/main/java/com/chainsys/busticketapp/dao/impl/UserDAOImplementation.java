@@ -8,17 +8,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.busticketapp.dao.UserRegistrationDAO;
+import com.chainsys.busticketapp.dao.UserDAO;
 import com.chainsys.busticketapp.exception.DBException;
-import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.model.User;
 import com.chainsys.busticketapp.util.ConnectionUtil;
 
 @Repository
-public class UserRegistrationDAOImplementation implements UserRegistrationDAO {
-	UserRegistration obj = new UserRegistration();
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookingDAOImplementation.class);
+public class UserDAOImplementation implements UserDAO {
 
-	public void save(UserRegistration obj) throws DBException {
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImplementation.class);
+
+	@Override
+	public void save(User obj) throws DBException {
 		String sql = "insert into User_register(name,Email_id,password,contact,user_id) values(?,?,?,?,user_id.nextval)";
 		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -33,6 +34,7 @@ public class UserRegistrationDAOImplementation implements UserRegistrationDAO {
 		}
 	}
 
+	@Override
 	public void remove(int userId) throws DBException {
 		String sql = "delete from User_register where user_id=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {

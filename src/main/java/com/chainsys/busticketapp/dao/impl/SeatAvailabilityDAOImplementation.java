@@ -17,9 +17,10 @@ import com.chainsys.busticketapp.util.ConnectionUtil;
 import com.chainsys.busticketapp.util.ErrorMessages;
 
 @Repository
-public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookingDAOImplementation.class);
+public class SeatAvailabilityDAOImplementation implements SeatAvailabilityDAO {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SeatAvailabilityDAOImplementation.class);
 
+	@Override
 	public void save(SeatAvailability obj) throws DBException {
 		String sql = "insert into seat_availability(bus_no,available_seats,total_seats) values(?,?,?)";
 		LOGGER.debug(sql);
@@ -35,6 +36,7 @@ public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 		}
 	}
 
+	@Override
 	public void delete(int busNo) throws DBException {
 		String sql = "delete from seat_availability where bus_no=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -46,6 +48,7 @@ public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 		}
 	}
 
+	@Override
 	public void update(int availableSeats, int busNo) throws DBException {
 		String sql = "update seat_availability set available_seats=?" + " where bus_no= ?";
 		LOGGER.debug(sql);
@@ -59,8 +62,9 @@ public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 		}
 	}
 
+	@Override
 	public int findByBusNo(int busNo) throws DBException {
-		String sql = "select *from seat_availability where bus_no=?";
+		String sql = "select bus_no,available_seats,total_seats from seat_availability where bus_no=?";
 		LOGGER.debug(sql);
 		int seats = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -76,6 +80,7 @@ public class SeatAvailabilityimplementation implements SeatAvailabilityDAO {
 		return seats;
 	}
 
+	@Override
 	public ArrayList<SeatAvailability> findBySourceDestination(String source, String destination) throws DBException {
 		String sql = "select *from seat_availability where bus_no IN(select bus_no from bus_list where bus_source=? and bus_destination=?)";
 		LOGGER.debug(sql);

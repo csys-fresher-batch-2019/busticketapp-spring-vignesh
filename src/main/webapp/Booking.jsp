@@ -1,4 +1,4 @@
-<%@page import="com.chainsys.busticketapp.model.UserRegistration"%>
+<%@page import="com.chainsys.busticketapp.model.User"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"

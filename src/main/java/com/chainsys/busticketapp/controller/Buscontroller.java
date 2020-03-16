@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.busticketapp.dao.impl.BusTicketManagerImplimentation;
+import com.chainsys.busticketapp.dao.impl.BusDAOImplementation;
 import com.chainsys.busticketapp.exception.DBException;
-import com.chainsys.busticketapp.model.ListOfBuses;
+import com.chainsys.busticketapp.model.Buses;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api")
 public class Buscontroller {
 
-	BusTicketManagerImplimentation busimpl = new BusTicketManagerImplimentation();
+	BusDAOImplementation busimpl = new BusDAOImplementation();
 
 	@PostMapping("/addbus")
 	public void addBus(@RequestParam("busname") String busName, @RequestParam("source") String busSource,
@@ -32,11 +32,21 @@ public class Buscontroller {
 	}
 
 	@GetMapping("/viewbus")
-	public List<ListOfBuses> list(@RequestParam("source") String busSource,
+	public List<Buses> list(@RequestParam("source") String busSource,
 			@RequestParam("destination") String busDestination) {
-		List<ListOfBuses> source = null;
+		List<Buses> source = null;
 		try {
 			source = busimpl.findBySourceDestination(busSource, busDestination);
+		} catch (DBException e) {
+			e.printStackTrace();
+		}
+		return source;
+	}
+	@GetMapping("/viewbusdestination")
+	public List<Buses> listDestination(@RequestParam("source") String busSource) {
+		List<Buses> source = null;
+		try {
+			source = busimpl.findDestination(busSource);
 		} catch (DBException e) {
 			e.printStackTrace();
 		}

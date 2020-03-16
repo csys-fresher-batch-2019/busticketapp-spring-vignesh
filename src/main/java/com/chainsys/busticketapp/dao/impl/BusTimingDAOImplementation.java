@@ -20,9 +20,10 @@ import com.chainsys.busticketapp.util.ConnectionUtil;
 import com.chainsys.busticketapp.util.ErrorMessages;
 
 @Repository
-public class BusTimingIplementation implements TimingDAO {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BusTicketManagerImplimentation.class);
+public class BusTimingDAOImplementation implements TimingDAO {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BusTimingDAOImplementation.class);
 
+	@Override
 	public void save(BusTiming obj) throws DBException {
 		String sql = "insert into bus_time(bus_no,amount,departure_time,arrival_time) values(?,?,?,?)";
 		LOGGER.debug(sql);
@@ -40,6 +41,7 @@ public class BusTimingIplementation implements TimingDAO {
 		}
 	}
 
+	@Override
 	public void delete(int busNo) throws DBException {
 		String sql = "delete from bus_time where bus_no=?";
 		LOGGER.debug(sql);
@@ -53,8 +55,9 @@ public class BusTimingIplementation implements TimingDAO {
 		}
 	}
 
+	@Override
 	public List<BusTiming> findAll() throws DBException {
-		String sql = "select * from bus_time";
+		String sql = "select bus_no,amount,departure_time,arrival_time from bus_time";
 		LOGGER.debug(sql);
 		ArrayList<BusTiming> List = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();
@@ -76,13 +79,14 @@ public class BusTimingIplementation implements TimingDAO {
 
 	}
 
+	@Override
 	public BusTiming findByBusNo(int busNo) throws DBException {
-		String sql = "select * from bus_time where bus_no=" + busNo;
+		String sql = "select * from bus_time where bus_no=?";
 		BusTiming obj = null;
 		LOGGER.debug(sql);
 		try (Connection con = ConnectionUtil.getConnection();
-				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery(sql);) {
+				PreparedStatement pst = con.prepareStatement(sql);
+				ResultSet rs = pst.executeQuery();) {
 
 			if (rs.next()) {
 				obj = new BusTiming();

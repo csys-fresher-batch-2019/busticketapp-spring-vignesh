@@ -13,10 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.busticketapp.dao.BusTicketDAO;
-import com.chainsys.busticketapp.dao.impl.BusTicketManagerImplimentation;
+import com.chainsys.busticketapp.dao.BusDAO;
+import com.chainsys.busticketapp.dao.impl.BusDAOImplementation;
 import com.chainsys.busticketapp.exception.DBException;
-import com.chainsys.busticketapp.model.ListOfBuses;
+import com.chainsys.busticketapp.model.Buses;
 import com.chainsys.busticketapp.service.BusTicketService;
 @WebServlet("/SearchBusServlet")
 public class SearchBusServlet extends HttpServlet {
@@ -28,7 +28,7 @@ public class SearchBusServlet extends HttpServlet {
     @Autowired
     BusTicketService dao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BusTicketDAO dao = new BusTicketManagerImplimentation();
+		BusDAO dao = new BusDAOImplementation();
 		String BusSource = request.getParameter("source");
 		String BusDestination = request.getParameter("destination");
 		String journeydate = request.getParameter("journeydate");
@@ -36,7 +36,7 @@ public class SearchBusServlet extends HttpServlet {
 		HttpSession sessiondate=request.getSession();
 		 sessiondate.setAttribute("journeydate", journeydate);
 		try {
-			List<ListOfBuses> list = dao.findBySourceDestination(BusSource, BusDestination);
+			List<Buses> list = dao.findBySourceDestination(BusSource, BusDestination);
 			request.setAttribute("busList",list);
 			//dao.sourceStationlist(BusSource, BusDestination);
 			RequestDispatcher rs = request.getRequestDispatcher("NoOfBuses.jsp");

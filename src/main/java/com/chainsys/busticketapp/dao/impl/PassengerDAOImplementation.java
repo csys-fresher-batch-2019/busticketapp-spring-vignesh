@@ -15,9 +15,10 @@ import com.chainsys.busticketapp.util.ConnectionUtil;
 import com.chainsys.busticketapp.util.ErrorMessages;
 
 @Repository
-public class PassengerImplementation implements PassengerDAO {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookingDAOImplementation.class);
+public class PassengerDAOImplementation implements PassengerDAO {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PassengerDAOImplementation.class);
 
+	@Override
 	public void save(Passenger obj) throws DBException {
 		String sql = "insert into passenger (pas_id,pas_name,pas_age,pas_gender,pas_contact)values (pas_id.nextval,?,?,?,?)";
 		LOGGER.debug(sql);
@@ -35,6 +36,7 @@ public class PassengerImplementation implements PassengerDAO {
 		}
 	}
 
+	@Override
 	public void delete(int passengerId) throws DBException {
 
 		String sql = "delete from passenger where pas_id=?";
@@ -48,6 +50,7 @@ public class PassengerImplementation implements PassengerDAO {
 		}
 	}
 
+	@Override
 	public void update(long passengerContact, int passengerId) throws DBException {
 
 		String sql = "update passenger set pas_contact=? where pas_id=?";

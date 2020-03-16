@@ -16,7 +16,7 @@ public interface BookingDAO {
 
 	public int getBusNo(int ticketNo) throws DBException;
 
-	public void updateTotalAmount(int ticketNo, int passengerId, int noOfTicket) throws DBException;
+	public void updateTicketDetails(int ticketNo, int passengerId, int noOfTicket) throws DBException;
 
 	List<Booking> findMyTickets(int userId) throws DBException;
 

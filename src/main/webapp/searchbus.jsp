@@ -1,5 +1,5 @@
 <%@page import="java.time.LocalDate"%>
-<%@page import="com.chainsys.busticketapp.model.UserRegistration"%>
+<%@page import="com.chainsys.busticketapp.model.User"%>
 <html>
 <body>
 <center>USER ID:${User.userId}</center>
@@ -17,7 +17,7 @@ Enter Source:
 <input name="source" list = "source_list" style="margin-left:27px;" required>
 <datalist id = "source_list">
 <option value="None">
-<option value="TMB">
+<option value="TBM">
 <option value="CMBT">
 <option value="CHENNAI">
 </datalist>

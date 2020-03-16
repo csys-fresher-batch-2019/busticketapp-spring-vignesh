@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.model.BusTiming;
-import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.model.User;
 import com.chainsys.busticketapp.service.ReservationService;
 @WebServlet("/BookingServlet")
 public class BookingServlet extends HttpServlet {
@@ -56,7 +56,7 @@ public class BookingServlet extends HttpServlet {
 		LocalDateTime jDate = LocalDateTime.parse(journeyDate + "T" + time); 
 		ul.setJourneyDate(jDate);
 		
-		UserRegistration user = (UserRegistration)session.getAttribute("User");
+		User user = (User)session.getAttribute("User");
 		ul.setUserId(user.getUserId());
 		
 		System.out.println(ul);

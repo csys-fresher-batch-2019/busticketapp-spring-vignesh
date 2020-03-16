@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.busticketapp.dao.impl.BusTimingIplementation;
+import com.chainsys.busticketapp.dao.impl.BusTimingDAOImplementation;
 import com.chainsys.busticketapp.model.BusTiming;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api")
 public class BusTimingcontroller {
-	BusTimingIplementation bustime = new BusTimingIplementation();
+	BusTimingDAOImplementation bustime = new BusTimingDAOImplementation();
 	@PostMapping("/addBusTime")
 	public void addBusTiming(@RequestBody BusTiming u) throws Exception {
 	

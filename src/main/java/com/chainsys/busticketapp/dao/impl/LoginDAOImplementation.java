@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import com.chainsys.busticketapp.dao.LoginDAO;
 import com.chainsys.busticketapp.exception.DBException;
-import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.model.User;
 import com.chainsys.busticketapp.util.ConnectionUtil;
 import com.chainsys.busticketapp.util.ErrorMessages;
 
 @Repository
 public class LoginDAOImplementation implements LoginDAO {
+	@Override
 	public boolean adminLogin(String adminName, String pass) throws DBException {
 
 		boolean valid = false;
@@ -28,7 +29,7 @@ public class LoginDAOImplementation implements LoginDAO {
 				if (rs.next()) {
 					valid = true;
 				}
-			} 
+			}
 		} catch (SQLException e) {
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
@@ -36,9 +37,10 @@ public class LoginDAOImplementation implements LoginDAO {
 	}
 	// user Login
 
-	public UserRegistration userLogin(String emailId, String password) throws DBException {
+	@Override
+	public User userLogin(String emailId, String password) throws DBException {
 		String sql = "select user_id,name,Email_id from User_register where Email_id=? and password=?";
-		UserRegistration u = null;
+		User u = null;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
 
 			pst.setString(1, emailId);
@@ -46,7 +48,7 @@ public class LoginDAOImplementation implements LoginDAO {
 
 			try (ResultSet rs = pst.executeQuery()) {
 				if (rs.next()) {
-					u = new UserRegistration();
+					u = new User();
 					u.setUserId(rs.getInt("user_id"));
 					u.setUserName(rs.getString("name"));
 					u.setEmailId(rs.getString("Email_id"));

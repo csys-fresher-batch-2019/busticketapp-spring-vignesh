@@ -1,8 +1,7 @@
 package com.chainsys.busticketapp.model;
 
-public class ListOfBuses {
+public class Buses {
 
-	
 	@Override
 	public String toString() {
 		return "ListOfBuses [busNo=" + busNo + ", busName=" + busName + ", busSource=" + busSource + ", busDestination="
@@ -16,10 +15,19 @@ public class ListOfBuses {
 	private String busDestination;
 	private String clazz;
 	private int amount;
-	
+	private int busCount;
+
 	private BusTiming busTiming;
 	private SeatAvailability seatAvailability;
-	
+
+	public int getBusCount() {
+		return busCount;
+	}
+
+	public void setBusCount(int busCount) {
+		this.busCount = busCount;
+	}
+
 	public int getBusNo() {
 		return busNo;
 	}
@@ -59,7 +67,6 @@ public class ListOfBuses {
 	public void setClazz(String clazz) {
 		this.clazz = clazz;
 	}
-
 
 	public BusTiming getBusTiming() {
 		return busTiming;

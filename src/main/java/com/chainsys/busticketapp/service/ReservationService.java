@@ -15,46 +15,52 @@ import com.chainsys.busticketapp.exception.ServiceException;
 import com.chainsys.busticketapp.exception.ValidatorException;
 import com.chainsys.busticketapp.model.Booking;
 import com.chainsys.busticketapp.util.mail.Mail;
+
 @Service
 public class ReservationService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookingDAOImplementation.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationService.class);
 	@Autowired
 	private BookingDAO reservation;
 
-	public String getEmail(int userId) throws ValidatorException{
-		String email=null;
+	public String getEmail(int userId) throws ValidatorException {
+		String email = null;
 		try {
 			email = reservation.getEmail(userId);
 		} catch (DBException e) {
 			throw new ServiceException(e.getMessage());
 		}
 		return email;
-		
+
 	}
 
 	public void addReservationList(Booking obj) throws Exception {
 		String email = reservation.getEmail(obj.getUserId());
 		LOGGER.info(email);
 		reservation.save(obj);
-		
-			Mail.send("vignesh280519@gmail.com", "6369541046", email, " Your Ticket is Booked ",
-					"Thanks for using this application", obj.getPassengerId());
-	
+
+		Mail.send("vignesh280519@gmail.com", "6369541046", email, " Your Ticket is Booked ",
+				"Thanks for using this application", obj.getPassengerId());
+
 	}
 
 	void cancelReservationList(int busNo) throws Exception {
-		reservation.cancelTicket(busNo);
+		try {
+			reservation.cancelTicket(busNo);
+		} catch (DBException e) {
+			throw new ServiceException(e.getMessage());
+		}
 	}
 
 	List<Booking> reserveDetails() throws Exception {
 		List<Booking> reserveDetails = new ArrayList<>();
-		try{
-			reserveDetails=reservation.findAll();
-		}catch (DBException e) {
+		try {
+			reserveDetails = reservation.findAll();
+		} catch (DBException e) {
 			throw new ServiceException(e.getMessage());
-	}
+		}
 		return reserveDetails;
 	}
+
 	public int getBusNo(int ticketNo) throws DBException {
 		int ticketNumber;
 		try {
@@ -68,25 +74,24 @@ public class ReservationService {
 	public void updateNoOfTicket(int ticketNo, int passengerId, int noOfTicket) throws Exception {
 		BookingDAOImplementation imp = new BookingDAOImplementation();
 		int busId = imp.getBusNo(ticketNo);
-		LOGGER.info("",busId);
+		LOGGER.info("BusNo is", busId);
 		boolean result = imp.updateSeatAvailability(noOfTicket, busId);
-		LOGGER.debug("",result);
-		if(result == true) {
-			imp.updateTotalAmount(ticketNo, passengerId, noOfTicket);
-		}
-		else
+		LOGGER.debug("", result);
+		if (result == true) {
+			imp.updateTicketDetails(ticketNo, passengerId, noOfTicket);
+		} else
 			throw new Exception("Unable to updateNoOfTicket");
 	}
 
-	public List<Booking> listMyTickets(int userId) throws Exception{
+	public List<Booking> listMyTickets(int userId) throws Exception {
 		List<Booking> reserveDetails = new ArrayList<>();
-		try{
-			reserveDetails=reservation.findMyTickets(userId);
-		}catch (DBException e) {
+		try {
+			reserveDetails = reservation.findMyTickets(userId);
+		} catch (DBException e) {
 			throw new ServiceException(e.getMessage());
-	}
+		}
 		return reserveDetails;
-		
+
 	}
 
 }

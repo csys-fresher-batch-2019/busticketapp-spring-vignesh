@@ -1,7 +1,6 @@
 package com.chainsys.busticketapp.model;
 
 public class Passenger {
-	private int busNo;
 
 	public int getBusNo() {
 		return busNo;
@@ -51,6 +50,7 @@ public class Passenger {
 		this.passengerContact = passengerContact;
 	}
 
+	private int busNo;
 	private int passengerId;
 	private String passengerName;
 	private int passengerAge;

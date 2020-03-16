@@ -1,10 +1,10 @@
-<%@page import="com.chainsys.busticketapp.model.UserRegistration"%>
+<%@page import="com.chainsys.busticketapp.model.User"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chainsys.busticketapp.dao.SeatAvailabilityDAO"%>
 <%@page
-	import="com.chainsys.busticketapp.dao.impl.SeatAvailabilityimplementation"%>
+	import="com.chainsys.busticketapp.dao.impl.SeatAvailabilityDAOImplementation"%>
 <%@page import="com.chainsys.busticketapp.model.SeatAvailability"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>

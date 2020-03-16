@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.model.User;
 import com.chainsys.busticketapp.service.LoginService;
 
 
@@ -40,7 +40,7 @@ public class Userloginservlet extends HttpServlet {
 		
 		
 		try {
-			UserRegistration user = com.user(EmailId, password);
+			User user = com.user(EmailId, password);
 			if (user != null) {
 				System.out.println("Login Success");
 				HttpSession session=request.getSession();

@@ -1,7 +1,7 @@
 package com.chainsys.busticketapp.dao;
 
 import com.chainsys.busticketapp.exception.DBException;
-import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.model.User;
 
 public interface LoginDAO {
 	
@@ -9,5 +9,5 @@ public interface LoginDAO {
 	public boolean adminLogin(String adminname, String pass) throws DBException;
 	
 	//@SqlUpdate("select name from UserRegister where Email_id=? and password=?")
-	public UserRegistration userLogin(String emailId, String pass) throws DBException ;
+	public User userLogin(String emailId, String pass) throws DBException ;
 }

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.busticketapp.model.UserRegistration;
-import com.chainsys.busticketapp.service.UserRegistrationService;
+import com.chainsys.busticketapp.model.User;
+import com.chainsys.busticketapp.service.UserService;
 
 @WebServlet("/RegisterServlet")
 
@@ -22,7 +22,7 @@ public class RegisterServlet extends HttpServlet {
 		super();
 	}
 	@Autowired
-	UserRegistrationService dao;
+	UserService dao;
 		
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,14 +38,14 @@ public class RegisterServlet extends HttpServlet {
 		//System.out.println(userid);
 
 		//UserRegistrationDAOImplementation dao = new UserRegistrationDAOImplementation();
-		UserRegistration ul = new UserRegistration();
+		User ul = new User();
 		ul.setContactNumber(contact);
 		ul.setEmailId(email);
 		ul.setPassword(password);
 		//ul.setUserId(userid);
 		ul.setUserName(name);
 		try {
-			dao.newUserRegister(ul);
+			dao.saveUser(ul);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

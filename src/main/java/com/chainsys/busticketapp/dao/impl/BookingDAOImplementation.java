@@ -85,7 +85,7 @@ public class BookingDAOImplementation implements BookingDAO {
 	public ArrayList<Booking> findAll() throws DBException {
 		String sql = "select * from reserve";
 		LOGGER.debug(sql);
-		ArrayList<Booking> List = new ArrayList<>();
+		ArrayList<Booking> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 
 			try (ResultSet rs = pst.executeQuery();) {
@@ -99,13 +99,13 @@ public class BookingDAOImplementation implements BookingDAO {
 					obj.setTotalAmount(rs.getInt("total_amount"));
 					obj.setStatus(rs.getString("status"));
 					obj.setUserId(rs.getInt("user_id"));
-					List.add(obj);
+					list.add(obj);
 				}
 			}
 		} catch (SQLException e) {
 			throw new DBException("unable to execute bookingDetails", e);
 		}
-		return List;
+		return list;
 	}
 
 	public int getBusNo(int ticketNo) throws DBException {
@@ -144,7 +144,7 @@ public class BookingDAOImplementation implements BookingDAO {
 			return false;
 	}
 
-	public void updateTotalAmount(int ticketNo, int passengerId, int noOfTicket) throws DBException {
+	public void updateTicketDetails(int ticketNo, int passengerId, int noOfTicket) throws DBException {
 		int row = 0;
 		String sql = "update reserve r set total_amount = ( (no_of_ticket - ?)*(select amount from bus_time where bus_no=r.bus_no)),"
 				+ "no_of_ticket=no_of_ticket- ? where ticket_no = ?";

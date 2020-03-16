@@ -6,40 +6,55 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chainsys.busticketapp.dao.BusTicketDAO;
+import com.chainsys.busticketapp.dao.BusDAO;
 import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.exception.ServiceException;
 import com.chainsys.busticketapp.exception.ValidatorException;
-import com.chainsys.busticketapp.model.ListOfBuses;
-import com.chainsys.busticketapp.validator.SourceDestinationValidator;
+import com.chainsys.busticketapp.model.Buses;
+import com.chainsys.busticketapp.validator.SourceAndDestinationValidator;
+
 @Service
 public class BusTicketService {
 	@Autowired
-	private BusTicketDAO busticket;
+	private BusDAO busticket;
 
 	// static Jdbi jdbi=ConnectionUtil.getJdbi();
 	// static BusTicketDAO busticket=jdbi.onDemand(BusTicketDAO.class);
-	public void addBuslist(int busNo, String busName, String busSource, String busDestination, String clazz) throws Exception {
-		busticket.save(busName, busSource, busDestination, clazz);
+	public void addBuslist(int busNo, String busName, String busSource, String busDestination, String clazz)
+			throws Exception {
+		try {
+			busticket.save(busName, busSource, busDestination, clazz);
+		} catch (DBException e) {
+			throw new ServiceException(e.getMessage());
+		}
 	}
 
-	/*void deleteBuslist(int busNo) throws Exception {
-		busticket.deleteBuslist(busNo);
-	}
-*/
+	/*
+	 * void deleteBuslist(int busNo) throws Exception { try{
+	 * busticket.deleteBuslist(busNo); } catch (DBException e) { throw new
+	 * ServiceException(e.getMessage()); } }
+	 */
 	public int noOfBuses() throws Exception {
-		return busticket.count();
+		try {
+			return busticket.count();
+		} catch (DBException e) {
+			throw new ServiceException(e.getMessage());
+		}
 	}
 
 	HashMap<String, Integer> noOfBuslist() throws Exception {
-		return busticket.findAllByBusName();
+		try {
+			return busticket.findAllByBusName();
+		} catch (DBException e) {
+			throw new ServiceException(e.getMessage());
+		}
 	}
 
-	public List<ListOfBuses> sourceStationlist(String busSource, String busDestination) throws ServiceException {
+	public List<Buses> sourceStationlist(String busSource, String busDestination) throws ServiceException {
 
-		List<ListOfBuses> sourceStationlist;
+		List<Buses> sourceStationlist;
 		try {
-			SourceDestinationValidator sourceValidator = new SourceDestinationValidator();
+			SourceAndDestinationValidator sourceValidator = new SourceAndDestinationValidator();
 			sourceValidator.validateSearch(busSource, busDestination);
 			sourceStationlist = busticket.findBySourceDestination(busSource, busDestination);
 		} catch (DBException | ValidatorException e) {
@@ -48,7 +63,5 @@ public class BusTicketService {
 		}
 		return sourceStationlist;
 	}
-
-	
 
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chainsys.busticketapp.model.Booking;
-import com.chainsys.busticketapp.model.UserRegistration;
+import com.chainsys.busticketapp.model.User;
 import com.chainsys.busticketapp.service.ReservationService;
 
 @WebServlet("/MyTicketServlet")
@@ -32,7 +32,7 @@ public class MyTicketServlet extends HttpServlet {
 		//String userId=request.getParameter("userid");
 		
 		HttpSession session = request.getSession();
-		UserRegistration user = (UserRegistration)session.getAttribute("User");
+		User user = (User)session.getAttribute("User");
 				
 		int userid=user.getUserId() ;///Integer.parseInt(userId);
 		System.out.println(userid);
