@@ -10,7 +10,7 @@ import lombok.Data;
 public class Message {
 
 	private String infoMessage;
-	
+
 	private String errorMessage;
 
 	public String getInfoMessage() {

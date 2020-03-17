@@ -22,14 +22,14 @@ placeholder="Enter Password"required >
 <br/><br>
 <button type="submit"style="margin-left:150px;">submit</button>
 
-<%
+<%--<%
 String result = (String) request.getParameter("res");
 if (result != null) {
 out.println("<center><font color=red>" + result + "</font></center>");
 }
 %>
 
-<%-- <%
+ <%
 String errorMessage=request.getParameter("errorMessage");
 if(errorMessage!=null)
 {

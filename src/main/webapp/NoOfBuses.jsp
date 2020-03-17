@@ -20,8 +20,8 @@
 				<th>Bus Name</th>
 				<th>Class</th>
 				<th>Amount</th>
-				<th>Total Seats</th>
 				<th>Available Seats</th>
+				<th>Total Seats</th>
 				<th>Timing</th>
 				<th>Book</th>
 			</tr>
@@ -46,7 +46,7 @@
 				<td>${b.seatAvailability.availableSeats}</td>
 				<td>${b.seatAvailability.totalSeats}</td>
 				<td>${b.busTiming.departureTime}</td>
-				<td><a href="BusTimingServlet?busNo=${b.getBusNo()}&Timing=${b.getBusTiming().getDepartureTime()}">click</a></td>
+				<td><a href="BusTimingServlet?busNo=${b.getBusNo()}&Timing=${b.getBusTiming().getDepartureTime()}&availableSeats=${b.seatAvailability.availableSeats}">click</a></td>
 				</tr>
 					</c:forEach>
 			<%

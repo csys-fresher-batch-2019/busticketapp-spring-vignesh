@@ -84,16 +84,17 @@ public class BusTimingDAOImplementation implements TimingDAO {
 		String sql = "select * from bus_time where bus_no=?";
 		BusTiming obj = null;
 		LOGGER.debug(sql);
-		try (Connection con = ConnectionUtil.getConnection();
-				PreparedStatement pst = con.prepareStatement(sql);
-				ResultSet rs = pst.executeQuery();) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, busNo);
+			try (ResultSet rs = pst.executeQuery();) {
 
-			if (rs.next()) {
-				obj = new BusTiming();
-				obj.setBusNo(rs.getInt("bus_no"));
-				obj.setAmount(rs.getInt("amount"));
-				obj.setDepartureTime(rs.getTime("departure_time").toLocalTime());
-				obj.setArrivalTime(rs.getTime("arrival_time").toLocalTime());
+				if (rs.next()) {
+					obj = new BusTiming();
+					obj.setBusNo(rs.getInt("bus_no"));
+					obj.setAmount(rs.getInt("amount"));
+					obj.setDepartureTime(rs.getTime("departure_time").toLocalTime());
+					obj.setArrivalTime(rs.getTime("arrival_time").toLocalTime());
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);

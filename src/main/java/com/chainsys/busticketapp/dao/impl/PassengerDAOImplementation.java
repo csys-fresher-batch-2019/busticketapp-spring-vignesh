@@ -28,8 +28,8 @@ public class PassengerDAOImplementation implements PassengerDAO {
 			pst.setString(3, obj.getPassengerGender());
 			pst.setLong(4, obj.getPassengerContact());
 			int row = pst.executeUpdate();
-			// int result=obj.getPassengerId();
-			LOGGER.info("" + row);
+
+			LOGGER.info("", row);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException("Unable to execute save Passenger", e);
@@ -44,7 +44,7 @@ public class PassengerDAOImplementation implements PassengerDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setInt(1, passengerId);
 			int row = pst.executeUpdate();
-			LOGGER.info("" + row);
+			LOGGER.info("", row);
 		} catch (SQLException e) {
 			throw new DBException("Unable to execute delete Passenger", e);
 		}
@@ -59,7 +59,7 @@ public class PassengerDAOImplementation implements PassengerDAO {
 			pst.setLong(1, passengerContact);
 			pst.setInt(2, passengerId);
 			int row = pst.executeUpdate();
-			LOGGER.info("" + row);
+			LOGGER.info("", row);
 
 		} catch (SQLException e) {
 			throw new DBException(ErrorMessages.INVALID_PHONE_NO, e);

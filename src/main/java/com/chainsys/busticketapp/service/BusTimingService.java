@@ -43,6 +43,7 @@ public class BusTimingService {
 		try {
 			return timeing.findByBusNo(busNo);
 		} catch (DBException e) {
+			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
 	}

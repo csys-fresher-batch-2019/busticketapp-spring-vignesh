@@ -24,23 +24,20 @@
 	<center>
 		<h1>Available Seats:</h1>
 	</center>
-	<%--
-	 ${param.BusNo}
-	${param.Timing}
-	 --%>
+	
 	<center>
-		<h1>${AVAILABLE_SEATS}</h1>
+		<h1>${param.availableSeats}</h1>
 	</center>
 
 	<center>
 		<button>
-			<a href="Passengerinfo.jsp?BusNo=${BusNo}">NewPassenger 
+			<a href="Passengerinfo.jsp?BusNo=${param.BusNo}&Timing=${param.Timing}">NewPassenger 
 		</button>
 	</center>
 	<br />
 	<center>
 		<button>
-			<a href="Booking.jsp?BusNo=${BusNo}">Already Register 
+			<a href="Booking.jsp?BusNo=${param.BusNo}">Already Register 
 		</button>
 	</center>
 

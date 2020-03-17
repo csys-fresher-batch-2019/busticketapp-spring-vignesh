@@ -33,23 +33,28 @@ if ( listMyTickets != null){
 		<a href="homeuser.jsp">Back
 	<%
 	int i=1;
-		for (Booking in : listMyTickets) {
+		//for (Booking in : listMyTickets) {
 					
-	%>			
+	%>		
+	<c:forEach items="${MyTickets}" var="b">	
 	     		<tr>
 	     		<td><%=i++%></td>
-				<td><%=in.getTicketNo()%></td>
-				<td><%=in.getBusNo()%></td>
-				<td><%=in.getPassengerId()%></td>
-				<td><%=in.getNoOfTicket()%></td>
-				<td><%=in.getJourneyDate()%></td>
-				<td><%=in.getTotalAmount()%></td>
-				<td><%=in.getStatus()%></td>
+				<td>${b.getTicketNo()}</td>
+				<td>${b.getBusNo()}</td>
+				<td>${b.getPassengerId()}</td>
+				<td>${b.getNoOfTicket()}</td>
+				<td>${b.getJourneyDate()}</td>
+				<td>${b.getTotalAmount()}</td>
+				<td>${b.getStatus()}</td>
 				</tr>
-				
-			<% } %>
+				</c:forEach>
+			<%
+			//}
+		%>
 			
-<%} %>
+<%
+}
+%>
 
 </body>
 </html>

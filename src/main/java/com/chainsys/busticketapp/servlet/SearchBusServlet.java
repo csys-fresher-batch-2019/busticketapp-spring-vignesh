@@ -18,41 +18,48 @@ import com.chainsys.busticketapp.dao.impl.BusDAOImplementation;
 import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.Buses;
 import com.chainsys.busticketapp.service.BusTicketService;
+
 @WebServlet("/SearchBusServlet")
 public class SearchBusServlet extends HttpServlet {
-	
-	private static final long serialVersionUID = 1L;      
-    public SearchBusServlet() {
-        super();
-    }
-    @Autowired
-    BusTicketService dao;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private static final long serialVersionUID = 1L;
+
+	public SearchBusServlet() {
+		super();
+	}
+
+	@Autowired
+	BusTicketService dao;
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		BusDAO dao = new BusDAOImplementation();
 		String BusSource = request.getParameter("source");
 		String BusDestination = request.getParameter("destination");
 		String journeydate = request.getParameter("journeydate");
-		
-		HttpSession sessiondate=request.getSession();
-		 sessiondate.setAttribute("journeydate", journeydate);
+
+		HttpSession sessiondate = request.getSession();
+		sessiondate.setAttribute("journeydate", journeydate);
 		try {
 			List<Buses> list = dao.findBySourceDestination(BusSource, BusDestination);
-			request.setAttribute("busList",list);
-			//dao.sourceStationlist(BusSource, BusDestination);
+			request.setAttribute("busList", list);
+			// dao.sourceStationlist(BusSource, BusDestination);
 			RequestDispatcher rs = request.getRequestDispatcher("NoOfBuses.jsp");
 			rs.forward(request, response);
 		} catch (DBException e) {
 			e.printStackTrace();
-			response.sendRedirect("searchbus.jsp?errorMessage="+e.getMessage());
+			response.sendRedirect("searchbus.jsp?errorMessage=" + e.getMessage());
 		}
 //		RequestDispatcher rs = request.getRequestDispatcher("NoOfBuses.jsp");
 //		rs.forward(request, response);
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 
 }

@@ -16,10 +16,11 @@ width="200" height="100"
 alt="busimage"/></center>
 <center>USER ID:${User.userId}</center>
 <br/>
+
 <center><table border="1">
 <thead><tr><th>Bus</th> <th>Timing </th> </tr></thead>
 <tbody>
-<tr><td>${Timing.getBusNo()}</td> <td>${Timing.getDepartureTime()}</td></tr>
+<tr><td>${param.BusNo}</td> <td>${param.Timing}</td></tr>
 </tbody>
 </table></center>
 <br/>
