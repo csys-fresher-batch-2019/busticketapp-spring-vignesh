@@ -37,4 +37,14 @@ public class PassengerService {
 		}
 	}
 
+	public int findPassengerId() throws Exception {
+		int id = 0;
+		try {
+			id = passenger.findPassengerId();
+		} catch (DBException e) {
+			throw new ServiceException(e.getMessage());
+		}
+		return id;
+	}
+
 }

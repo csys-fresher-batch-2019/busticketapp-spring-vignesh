@@ -8,24 +8,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.busticketapp.dao.impl.BookingDAOImplementation;
+import com.chainsys.busticketapp.dao.impl.UserDAOImplementation;
 import com.chainsys.busticketapp.dto.Message;
 import com.chainsys.busticketapp.exception.DBException;
-import com.chainsys.busticketapp.model.Booking;
+import com.chainsys.busticketapp.model.User;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api")
-public class Bookingcontroller {
+public class RegistrationController {
+	UserDAOImplementation register = new UserDAOImplementation();
 
-	BookingDAOImplementation book = new BookingDAOImplementation();
-
-	@PostMapping("/addBooking")
-	public ResponseEntity<?> addBusTiming(@RequestBody Booking u) {
-
+	@PostMapping("/addUser")
+	public ResponseEntity<?> save(@RequestBody User obj) {
 		try {
-			book.save(u);
-
+			register.save(obj);
 		} catch (DBException e) {
 			e.printStackTrace();
 			Message msg = new Message();
@@ -33,14 +30,5 @@ public class Bookingcontroller {
 			return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(HttpStatus.CREATED);
-
 	}
-
-	/*
-	 * @GetMapping("/viewbooking") public List<Booking> findAll() { List<Booking>
-	 * list = new ArrayList<>(); try { list = book.findAll(); } catch (DBException
-	 * e) { e.printStackTrace(); } return list;
-	 * 
-	 * }
-	 */
 }

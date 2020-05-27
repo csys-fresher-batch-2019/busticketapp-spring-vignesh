@@ -16,7 +16,7 @@ import com.chainsys.busticketapp.model.Buses;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api")
-public class Buscontroller {
+public class BusController {
 
 	BusDAOImplementation busimpl = new BusDAOImplementation();
 
@@ -36,7 +36,7 @@ public class Buscontroller {
 			@RequestParam("destination") String busDestination) {
 		List<Buses> source = null;
 		try {
-			source = busimpl.findBySourceDestination(busSource, busDestination);
+			source = busimpl.findBySourceAndDestination(busSource, busDestination);
 		} catch (DBException e) {
 			e.printStackTrace();
 		}

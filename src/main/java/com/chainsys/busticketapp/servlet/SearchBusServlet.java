@@ -13,11 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.busticketapp.dao.BusDAO;
-import com.chainsys.busticketapp.dao.impl.BusDAOImplementation;
-import com.chainsys.busticketapp.exception.DBException;
 import com.chainsys.busticketapp.model.Buses;
-import com.chainsys.busticketapp.service.BusTicketService;
+import com.chainsys.busticketapp.service.BusService;
 
 @WebServlet("/SearchBusServlet")
 public class SearchBusServlet extends HttpServlet {
@@ -29,12 +26,12 @@ public class SearchBusServlet extends HttpServlet {
 	}
 
 	@Autowired
-	BusTicketService dao;
+	BusService dao;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BusDAO dao = new BusDAOImplementation();
+		// BusDAO dao = new BusDAOImplementation();
 		String BusSource = request.getParameter("source");
 		String BusDestination = request.getParameter("destination");
 		String journeydate = request.getParameter("journeydate");
@@ -42,12 +39,12 @@ public class SearchBusServlet extends HttpServlet {
 		HttpSession sessiondate = request.getSession();
 		sessiondate.setAttribute("journeydate", journeydate);
 		try {
-			List<Buses> list = dao.findBySourceDestination(BusSource, BusDestination);
+			List<Buses> list = dao.findBySourceAndDestination(BusSource, BusDestination);
 			request.setAttribute("busList", list);
 			// dao.sourceStationlist(BusSource, BusDestination);
 			RequestDispatcher rs = request.getRequestDispatcher("NoOfBuses.jsp");
 			rs.forward(request, response);
-		} catch (DBException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("searchbus.jsp?errorMessage=" + e.getMessage());
 		}

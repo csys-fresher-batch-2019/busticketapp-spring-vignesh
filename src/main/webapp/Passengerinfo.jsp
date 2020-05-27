@@ -16,7 +16,7 @@ width="200" height="100"
 alt="busimage"/></center>
 <center>USER ID:${User.userId}</center>
 <br/>
-
+<form action="passengerservlet">
 <center><table border="1">
 <thead><tr><th>Bus</th> <th>Timing </th> </tr></thead>
 <tbody>
@@ -24,10 +24,7 @@ alt="busimage"/></center>
 </tbody>
 </table></center>
 <br/>
-<%
-String busno=request.getParameter("busNo");
-request.setAttribute("bus", busno);
-%>
+
 <%-- <%
 		String infoMessage = (String) request.getAttribute("infoMessage");
 		String errorMessage = (String) request.getAttribute("errorMessage");
@@ -40,7 +37,7 @@ request.setAttribute("bus", busno);
 <jsp:include page="message.jsp"></jsp:include>
 	
 <center><h3>Enter Passenger Details..</h3></center>
-<form action="passengerservlet">
+<input type="number" name = "bus" value=${param.BusNo} hidden>
 <h3><center>Enter Passenger Name:<input type="text" name="passengerName"
  placeholder="passengername"  required/></center></h3>
 <h3><center>Enter Age:<input type="number" name="Age" placeholder="age"  required/></center></h3>

@@ -13,7 +13,7 @@ import com.chainsys.busticketapp.model.SeatAvailability;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api")
-public class BusSeatcontroller {
+public class BusSeatController {
 	SeatAvailabilityDAOImplementation seat= new SeatAvailabilityDAOImplementation();
 	@PostMapping("/addseat")
 	public void addAvailableSeatlist(@RequestBody SeatAvailability obj) {

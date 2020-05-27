@@ -17,7 +17,6 @@ width="200" height="100"
 alt="busimage"/></center>
 <form action="BookingServlet">
 <center>USER ID:${User.userId}</center>
-
 <br/>
 <h3><center>Enter Booking Details..</center></h3>
 <h3><center>Enter Bus No:<input type="number" name="bus_no" value="${param.BusNo}"readonly/></center></h3>

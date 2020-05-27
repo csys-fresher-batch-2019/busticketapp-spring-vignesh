@@ -107,7 +107,7 @@ public class BusDAOImplementation implements BusDAO {
 	}
 
 	@Override
-	public List<Buses> findBySourceDestination(String busSource, String busDestination) throws DBException {
+	public List<Buses> findBySourceAndDestination(String busSource, String busDestination) throws DBException {
 		String sql = "select * from bus_list_view where bus_source=? and bus_destination=?";
 
 		List<Buses> source = new ArrayList<>();

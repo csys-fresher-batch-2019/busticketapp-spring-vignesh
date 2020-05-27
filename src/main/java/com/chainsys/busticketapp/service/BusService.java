@@ -14,7 +14,7 @@ import com.chainsys.busticketapp.model.Buses;
 import com.chainsys.busticketapp.validator.SourceAndDestinationValidator;
 
 @Service
-public class BusTicketService {
+public class BusService {
 	@Autowired
 	private BusDAO busticket;
 
@@ -50,13 +50,13 @@ public class BusTicketService {
 		}
 	}
 
-	public List<Buses> sourceStationlist(String busSource, String busDestination) throws ServiceException {
+	public List<Buses> findBySourceAndDestination(String busSource, String busDestination) throws ServiceException {
 
 		List<Buses> sourceStationlist;
 		try {
 			SourceAndDestinationValidator sourceValidator = new SourceAndDestinationValidator();
 			sourceValidator.validateSearch(busSource, busDestination);
-			sourceStationlist = busticket.findBySourceDestination(busSource, busDestination);
+			sourceStationlist = busticket.findBySourceAndDestination(busSource, busDestination);
 		} catch (DBException | ValidatorException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());

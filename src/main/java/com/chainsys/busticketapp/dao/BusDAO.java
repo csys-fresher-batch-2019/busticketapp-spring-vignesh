@@ -17,7 +17,7 @@ public interface BusDAO {
 
 	HashMap<String, Integer> findAllByBusName() throws DBException;
 	
-	public List<Buses> findBySourceDestination(String busSource, String busDestination) throws DBException;
+	public List<Buses> findBySourceAndDestination(String busSource, String busDestination) throws DBException;
 	
 	public List<Buses> findDestination(String busSource) throws DBException;
 	}

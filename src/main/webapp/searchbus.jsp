@@ -8,8 +8,6 @@
 width="300" height="200"
 alt="busimage"/>
 <h3>Find Bus</h3>
-
-
 <form action="SearchBusServlet"><br/>
 <body style="background-color:pink;">
 <br/>

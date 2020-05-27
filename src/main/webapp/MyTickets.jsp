@@ -1,5 +1,6 @@
 <%@page import="com.chainsys.busticketapp.model.Booking"%>
 <%@page import="com.chainsys.busticketapp.dao.impl.BookingDAOImplementation"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -42,16 +43,21 @@ if ( listMyTickets != null){
 				<td>${b.getTicketNo()}</td>
 				<td>${b.getBusNo()}</td>
 				<td>${b.getPassengerId()}</td>
-				<td>${b.getNoOfTicket()}</td>
+				<td>${b.getNoOfTicket()}</td>	
 				<td>${b.getJourneyDate()}</td>
 				<td>${b.getTotalAmount()}</td>
 				<td>${b.getStatus()}</td>
-				</tr>
+				</tr><br/>
+				<c:set var="startDate" value="${b.getJourneyDate()}"/>
+				<fmt:parseDate var="parsedStartDate" value="${b.getJourneyDate()}" type="date" pattern="yyyy-MM-dd"/>
+				<span class="btn btn-primary">   
+				JOURNEY DATE:<fmt:formatDate pattern = "dd-MM-yyyy" value = "${parsedStartDate}" /></span><br></br>
+				
 				</c:forEach>
 			<%
 			//}
 		%>
-			
+		
 <%
 }
 %>

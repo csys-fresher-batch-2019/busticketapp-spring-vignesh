@@ -2,6 +2,7 @@ package com.chainsys.busticketapp.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
@@ -65,4 +66,23 @@ public class PassengerDAOImplementation implements PassengerDAO {
 			throw new DBException(ErrorMessages.INVALID_PHONE_NO, e);
 		}
 	}
+
+	@Override
+	public int findPassengerId() throws DBException {
+		int id = 0;
+		String sql = "select max(pas_id) as id from passenger";
+		LOGGER.debug(sql);
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					id = rs.getInt("id");
+				}
+
+			}
+		} catch (SQLException e) {
+			throw new DBException("Unable to find passenger id", e);
+		}
+		return id;
+	}
+
 }
